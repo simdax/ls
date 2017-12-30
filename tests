@@ -1,7 +1,6 @@
-options=`./powerset l r R a t`
 
-echo $options
-
+args=${@:-"l r R a t"}
+options=`./powerset $args`
 
 for option in $options
 do

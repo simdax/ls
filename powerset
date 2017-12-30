@@ -1,9 +1,9 @@
 #!/bin/bash
 
 nbs=( $@ )
-size=$(( ${#nbs[@]} ** 2 - 1))
+size=$(( ${#nbs[@]} ** 2))
 
-for i in $(seq 0 $size)
+for i in $(seq 0 $(($size - 1))) 
 do
     for j in $(seq 1 ${#nbs[@]})
     do
