@@ -1,10 +1,14 @@
-cmds=("coucou")
-options="l R a t"
+options=`./powerset l r R a t`
+
+echo $options
+
 
 for option in $options
 do
-    echo `tput setaf 5`une option
-    echo `tput setaf 2``ls -$option .`
+    echo 
+    echo `tput setaf 5`avec l\(es\) options $option
+    echo -n `tput setaf 2`
+    ls -$option .
 done
 
 #diff <(ls) <()
