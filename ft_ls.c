@@ -2,13 +2,13 @@
 
 void print_dirent(struct dirent *infos)
 {
-  printf("inode : %d\n", infos->d_ino);
-  if (infos->d_type == DT_DIR)
-    printf("type : dir\n");
-  else if (infos->d_type == DT_REG)
-    printf("type : file\n");
-  else if (infos->d_type == DT_LNK)
-    printf("type : link\n");
+  /* printf("inode : %d\n", infos->d_ino); */
+  /* if (infos->d_type == DT_DIR) */
+  /*   printf("type : dir\n"); */
+  /* else if (infos->d_type == DT_REG) */
+  /*   printf("type : file\n"); */
+  /* else if (infos->d_type == DT_LNK) */
+  /*   printf("type : link\n"); */
   printf("name : %s\n", infos->d_name);
 }
 
@@ -25,22 +25,20 @@ int		read_dir(char *file)
   else
     {
       while (dir_inf = readdir(dir))
-        print_dirent(dir_inf);
+        {
+          print_dirent(dir_inf);
+          if ( dir_inf->d_type == DT_DIR &&
+               (strcmp("..", dir_inf->d_name)) &&
+               (strcmp(".", dir_inf->d_name)))
+               read_dir(dir_inf->d_name);
+        }
       closedir(dir);
       return (0);
     }  
 }
 
-int		ft_ls(char *file)
+void		print_stat(struct stat sb)
 {
-  struct stat sb;
-  
-  if (stat(file, &sb) == 1)
-    {
-      perror("can't get stat of file");
-      return (errno);
-    }
-
   printf("File type:                ");
   switch (sb.st_mode & S_IFMT) {
   case S_IFBLK:  printf("block device\n");            break;
@@ -67,4 +65,18 @@ int		ft_ls(char *file)
   printf("Last status change:       %s", ctime(&sb.st_ctime));
   printf("Last file access:         %s", ctime(&sb.st_atime));
   printf("Last file modification:   %s", ctime(&sb.st_mtime));
+  
+}
+
+int		ft_ls(char *file)
+{
+  struct stat sb;
+  
+  if (stat(file, &sb) == 1)
+    {
+      perror("can't get stat of file");
+      return (errno);
+    }
+  if ((sb.st_mode & S_IFMT) == S_IFDIR)
+    read_dir(file);  
 }
