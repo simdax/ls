@@ -1,0 +1,10 @@
+cmds=("coucou")
+options="l R a t"
+
+for option in $options
+do
+    echo `tput setaf 5`une option
+    echo `tput setaf 2``ls -$option .`
+done
+
+#diff <(ls) <()
