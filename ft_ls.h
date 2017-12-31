@@ -7,5 +7,9 @@
 #include <errno.h>
 #include <time.h>
 #include <string.h>
+#include "libft/libft.h"
 
 int		ft_ls(char *file);
+int		read_dir(char *file);
+void print_dirent(struct dirent *infos);
+char		*cat_filename(char *file1, char *file2);

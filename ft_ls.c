@@ -12,30 +12,29 @@ void print_dirent(struct dirent *infos)
   printf("name : %s\n", infos->d_name);
 }
 
-int		read_dir(char *file)
+char		*cat_filename(char *file1, char *file2)
 {
-  DIR  		*dir;
-  struct dirent	*dir_inf;
+  char 		*ret;
+  size_t	size;
 
-  if (!(dir = opendir(file)))
-    {
-      perror("erreur d'ouverture");
-      return (errno);
-    }
-  else
-    {
-      while (dir_inf = readdir(dir))
-        {
-          print_dirent(dir_inf);
-          if ( dir_inf->d_type == DT_DIR &&
-               (strcmp("..", dir_inf->d_name)) &&
-               (strcmp(".", dir_inf->d_name)))
-               read_dir(dir_inf->d_name);
-        }
-      closedir(dir);
-      return (0);
-    }  
+  size = strlen(file1) + strlen(file2) + 1;
+  ret = (char*)malloc(size + 1);
+  strcpy(ret, file1);
+  strcat(ret, "/");
+  strcat(ret, file2);
+  return (ret);
 }
+
+int		nb_args(DIR *dir)
+{
+  int res;
+
+  res = 0;
+  while (readdir(dir))
+      ++res;
+  return (res);
+}
+
 
 void		print_stat(struct stat sb)
 {
@@ -72,11 +71,12 @@ int		ft_ls(char *file)
 {
   struct stat sb;
   
-  if (stat(file, &sb) == 1)
+  if (stat(file, &sb) != 0)
     {
       perror("can't get stat of file");
       return (errno);
     }
+  //  print_stat(sb);
   if ((sb.st_mode & S_IFMT) == S_IFDIR)
-    read_dir(file);  
+    read_dir(file);
 }
