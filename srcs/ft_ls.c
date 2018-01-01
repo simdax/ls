@@ -43,9 +43,11 @@ struct stat	return_stat(char *file)
   return (sb);
 }
 
-int		ft_ls(char *file)
+t_node		return_node(char *parent, char* filename)
 {
-  print_stat(return_stat(file));
-  /* if ((sb.st_mode & S_IFMT) == S_IFDIR) */
-  /*   read_dir(file); */
+  char *tmp_name;
+  
+  tmp_name = cat_filename(parent, filename);
+  return (t_node){parent, filename,
+      return_stat(tmp_name)};
 }

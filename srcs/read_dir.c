@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/01 14:32:45 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/01 14:33:10 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/01 17:03:44 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,24 @@ int		nb_args(DIR *dir)
 
 void		print(t_list *el)
 {
-  char	*name;
-  char	*parent_name;
-  char	*tmp_name;
-  int	type;
+  char		*name;
+  char		*parent_name;
+  char		*tmp_name;
+  struct stat	sb;
 
-  type = ((t_node*)el->content)->type;
+  sb = ((t_node*)el->content)->sb;
   parent_name = ((t_node*)el->content)->parent;
   name = ((t_node*)el->content)->name;
-  write(1, name, strlen(name));
-  write(1, "\n", 1);
-  if ( type == DT_DIR &&
-       (strcmp("..", name)) &&
-       (strcmp(".", name)))
-    {
-      tmp_name = cat_filename(parent_name, name);
-      read_dir(tmp_name);
-      free(tmp_name);
-    }
+  printf("%s\n", name);
+  tmp_name = cat_filename(parent_name, name);
+  print_stat(sb);
+  /* if ( sb.st_mode & S_IFMT == S_IFDIR && */
+  /*      (strcmp("..", name)) && */
+  /*      (strcmp(".", name))) */
+  /*   { */
+  read_dir(tmp_name);
+  free(tmp_name);
+      //    }
 }
 
 int		read_dir(char *file)
@@ -75,10 +75,7 @@ int		read_dir(char *file)
     {
       while (dir_inf = readdir(dir))
         {
-          node = (t_node){file, dir_inf->d_type,
-                          strdup(dir_inf->d_name),
-                          return_stat(dir_inf->d_name)
-          };
+          node = return_node(file, dir_inf->d_name);
           ft_lstadd(&list,
                     ft_lstnew(&node, sizeof(t_node)));
         }
