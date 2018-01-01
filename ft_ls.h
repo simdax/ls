@@ -9,6 +9,15 @@
 #include <string.h>
 #include "libft/libft.h"
 
+typedef struct	s_node
+{
+  char		*parent;
+  int		type;
+  char		*name;
+  struct stat	sb;
+}		t_node;
+
+struct stat	return_stat(char *file);
 int		ft_ls(char *file);
 int		read_dir(char *file);
 void print_dirent(struct dirent *infos);

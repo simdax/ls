@@ -1,41 +1,5 @@
 #include "ft_ls.h"
 
-void print_dirent(struct dirent *infos)
-{
-  /* printf("inode : %d\n", infos->d_ino); */
-  /* if (infos->d_type == DT_DIR) */
-  /*   printf("type : dir\n"); */
-  /* else if (infos->d_type == DT_REG) */
-  /*   printf("type : file\n"); */
-  /* else if (infos->d_type == DT_LNK) */
-  /*   printf("type : link\n"); */
-  printf("name : %s\n", infos->d_name);
-}
-
-char		*cat_filename(char *file1, char *file2)
-{
-  char 		*ret;
-  size_t	size;
-
-  size = strlen(file1) + strlen(file2) + 1;
-  ret = (char*)malloc(size + 1);
-  strcpy(ret, file1);
-  strcat(ret, "/");
-  strcat(ret, file2);
-  return (ret);
-}
-
-int		nb_args(DIR *dir)
-{
-  int res;
-
-  res = 0;
-  while (readdir(dir))
-      ++res;
-  return (res);
-}
-
-
 void		print_stat(struct stat sb)
 {
   printf("File type:                ");
@@ -67,16 +31,21 @@ void		print_stat(struct stat sb)
   
 }
 
-int		ft_ls(char *file)
+struct stat	return_stat(char *file)
 {
   struct stat sb;
   
   if (stat(file, &sb) != 0)
     {
       perror("can't get stat of file");
-      return (errno);
+      exit(errno);
     }
-  //  print_stat(sb);
-  if ((sb.st_mode & S_IFMT) == S_IFDIR)
-    read_dir(file);
+  return (sb);
+}
+
+int		ft_ls(char *file)
+{
+  print_stat(return_stat(file));
+  /* if ((sb.st_mode & S_IFMT) == S_IFDIR) */
+  /*   read_dir(file); */
 }
