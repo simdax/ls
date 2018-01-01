@@ -8,11 +8,11 @@ OBJS = $(SRCS:%.c=%.o)
 
 VPATH = srcs:objs
 
-all: $(NAME)
-	@make -C libft
-
-$(NAME): $(OBJS)
+all: $(OBJS)
 	gcc -g3 $(LD) $^ -o $(NAME)
+
+$(NAME):
+	@make -C libft
 
 %.o: %.c
 	gcc -g3 $(INC) -c $< -o objs/$@

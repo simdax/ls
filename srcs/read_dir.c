@@ -35,7 +35,7 @@ int		nb_args(DIR *dir)
   return (res);
 }
 
-void		print(t_list *el)
+void		print(t_list *el, void *flags)
 {
   char		*name;
   char		*parent_name;
@@ -46,18 +46,23 @@ void		print(t_list *el)
   parent_name = ((t_node*)el->content)->parent;
   name = ((t_node*)el->content)->name;
   printf("%s\n", name);
-  tmp_name = cat_filename(parent_name, name);
+  printf("%d et %d %d %d \n", ((int*)flags)[0],
+	 ((int*)flags)[1], ((int*)flags)[2],
+	 ((int*)flags)[3], ((int*)flags)[4]
+	 );
   print_stat(sb);
-  /* if ( sb.st_mode & S_IFMT == S_IFDIR && */
-  /*      (strcmp("..", name)) && */
-  /*      (strcmp(".", name))) */
-  /*   { */
-  read_dir(tmp_name);
-  free(tmp_name);
-      //    }
+  if ( (sb.st_mode & S_IFMT) == S_IFDIR &&
+	(strcmp("..", name)) &&
+	(strcmp(".", name))
+       )
+    {
+      tmp_name = cat_filename(parent_name, name);
+      read_dir(tmp_name, flags);
+      free(tmp_name);
+    }
 }
 
-int		read_dir(char *file)
+int		read_dir(char *file, void *flags)
 {
   DIR		*dir;
   struct dirent	*dir_inf;
@@ -80,7 +85,7 @@ int		read_dir(char *file)
                     ft_lstnew(&node, sizeof(t_node)));
         }
       closedir(dir);
-      ft_lstiter(list, print);
+      ft_lstiter2(list, print, flags);
       return (0);
     }
 }

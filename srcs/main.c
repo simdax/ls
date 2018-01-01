@@ -38,7 +38,7 @@ int	process(int argc, char **argv, int *flags)
     list = make_list(def);
   else
     list = make_list(argv);
-  ft_lstiter(list, print);
+  ft_lstiter2(list, print, flags);
 }
 
 void	take_flags(char **argv, int *arg)
@@ -63,11 +63,13 @@ void	take_flags(char **argv, int *arg)
 
 int	main(int argc, char **argv)
 {
-  int	flags[NB_FLAGS];
+  int	*flags;
 
+  flags = (int*)malloc(sizeof(int) * NB_FLAGS);
   ft_bzero(flags, sizeof(int) * NB_FLAGS);
   ++argv;
   take_flags(argv, flags);
   process(argc, argv, flags);
+  free(flags);
   return (0);
 }
