@@ -1,53 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
+/*   Updated: 2018/01/02 15:34:00 by scornaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void		print_stat(struct stat sb)
+void		print_stat(struct stat sb, void *flags)
 {
-  printf("File type:                ");
-  switch (sb.st_mode & S_IFMT) {
-  case S_IFBLK:  printf("block device\n");            break;
-  case S_IFCHR:  printf("character device\n");        break;
-  case S_IFDIR:  printf("directory\n");               break;
-  case S_IFIFO:  printf("FIFO/pipe\n");               break;
-  case S_IFLNK:  printf("symlink\n");                 break;
-  case S_IFREG:  printf("regular file\n");            break;
-  case S_IFSOCK: printf("socket\n");                  break;
-  default:       printf("unknown?\n");                break;
-  }
-  printf("I-node number:            %ld\n", (long) sb.st_ino);
-  printf("Mode:                     %lo (octal)\n",
-         (unsigned long) sb.st_mode);
-  printf("Link count:               %ld\n", (long) sb.st_nlink);
-  printf("Ownership:                UID=%ld   GID=%ld\n",
-         (long) sb.st_uid, (long) sb.st_gid);
-  printf("Preferred I/O block size: %ld bytes\n",
-         (long) sb.st_blksize);
-  printf("File size:                %lld bytes\n",
-         (long long) sb.st_size);
-  printf("Blocks allocated:         %lld\n",
-         (long long) sb.st_blocks);
-  printf("Last status change:       %s", ctime(&sb.st_ctime));
-  printf("Last file access:         %s", ctime(&sb.st_atime));
-  printf("Last file modification:   %s", ctime(&sb.st_mtime));
+	printf("File type:                ");
+	switch (sb.st_mode & S_IFMT) {
+	case S_IFBLK:  printf("block device\n");            break;
+	case S_IFCHR:  printf("character device\n");        break;
+	case S_IFDIR:  printf("directory\n");               break;
+	case S_IFIFO:  printf("FIFO/pipe\n");               break;
+	case S_IFLNK:  printf("symlink\n");                 break;
+	case S_IFREG:  printf("regular file\n");            break;
+	case S_IFSOCK: printf("socket\n");                  break;
+	default:       printf("unknown?\n");                break;
+	}
+	printf("I-node number:            %ld\n", (long) sb.st_ino);
+	printf("Mode:                     %lo (octal)\n",
+		   (unsigned long) sb.st_mode);
+	printf("Link count:               %ld\n", (long) sb.st_nlink);
+	printf("Ownership:                UID=%ld   GID=%ld\n",
+		   (long) sb.st_uid, (long) sb.st_gid);
+	printf("Preferred I/O block size: %ld bytes\n",
+		   (long) sb.st_blksize);
+	printf("File size:                %lld bytes\n",
+		   (long long) sb.st_size);
+	printf("Blocks allocated:         %lld\n",
+		   (long long) sb.st_blocks);
+	printf("Last status change:       %s", ctime(&sb.st_ctime));
+	printf("Last file access:         %s", ctime(&sb.st_atime));
+	printf("Last file modification:   %s", ctime(&sb.st_mtime));
   
 }
 
 struct stat	return_stat(char *file)
 {
-  struct stat sb;
+	struct stat sb;
   
-  if (stat(file, &sb) != 0)
+	if (lstat(file, &sb) != 0)
     {
-      perror("can't get stat of file");
-      exit(errno);
+		perror("can't get stat of file");
+		exit(errno);
     }
-  return (sb);
+	return (sb);
 }
 
 t_node		return_node(char *parent, char* filename)
 {
-  char *tmp_name;
+	char *tmp_name;
   
-  tmp_name = cat_filename(parent, filename);
-  return (t_node){parent, filename,
-      return_stat(tmp_name)};
+	tmp_name = cat_filename(parent, filename);
+	return (t_node){parent, filename,
+			return_stat(tmp_name)};
 }

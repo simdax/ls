@@ -4,18 +4,19 @@ LD = libft/*.o
 INC = -I libft -I .
 FLAGS = $(INC) $(LD) 
 SRCS = main.c ft_ls.c read_dir.c
-OBJS = $(SRCS:%.c=%.o)
+OBJS = $(SRCS:.c=.o)
 
-VPATH = srcs:objs
+vpath %.c srcs
+vpath %.o objs
 
 all: $(OBJS)
 	gcc -g3 $(LD) $^ -o $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
 	@make -C libft
 
-%.o: %.c
-	gcc -g3 $(INC) -c $< -o objs/$@
+%.o:%.c
+	gcc -g3 $(INC) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
@@ -25,6 +26,9 @@ fclean: clean
 
 re: fclean
 	make all
+
+debug: all
+	lldb ./$(NAME) padding
 
 tests:
 	@./tests	
