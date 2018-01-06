@@ -6,24 +6,11 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/01 14:32:45 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/02 15:36:48 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/06 12:50:11 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-char		*cat_filename(char *file1, char *file2)
-{
-	char		*ret;
-	size_t	size;
-
-	size = strlen(file1) + strlen(file2) + 1;
-	ret = (char*)malloc(size + 1);
-	strcpy(ret, file1);
-	strcat(ret, "/");
-	strcat(ret, file2);
-	return (ret);
-}
 
 int		nb_args(DIR *dir)
 {

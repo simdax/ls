@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/02 15:18:42 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/06 12:50:00 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef enum	e_flags
 {
     LONG, REVERSE, RECURSIVE, ALL, TIME_SORT
 }		t_flags;
-
 
 t_list	*make_list(char **argv)
 {
@@ -68,8 +67,8 @@ void	take_flags(char **argv, int *arg)
 				arg[index - FLAGS] = 1;
 			else
 			{
-				printf("error de petite pute");
-				exit(1);
+                          perror("flags error");
+                            exit(errno);
 			}
 			++flags;
         }

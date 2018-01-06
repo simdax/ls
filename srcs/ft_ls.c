@@ -6,41 +6,23 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/02 15:34:00 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/06 12:52:29 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		print_stat(struct stat sb, void *flags)
+char		*cat_filename(char *file1, char *file2)
 {
-	printf("File type:                ");
-	switch (sb.st_mode & S_IFMT) {
-	case S_IFBLK:  printf("block device\n");            break;
-	case S_IFCHR:  printf("character device\n");        break;
-	case S_IFDIR:  printf("directory\n");               break;
-	case S_IFIFO:  printf("FIFO/pipe\n");               break;
-	case S_IFLNK:  printf("symlink\n");                 break;
-	case S_IFREG:  printf("regular file\n");            break;
-	case S_IFSOCK: printf("socket\n");                  break;
-	default:       printf("unknown?\n");                break;
-	}
-	printf("I-node number:            %ld\n", (long) sb.st_ino);
-	printf("Mode:                     %lo (octal)\n",
-		   (unsigned long) sb.st_mode);
-	printf("Link count:               %ld\n", (long) sb.st_nlink);
-	printf("Ownership:                UID=%ld   GID=%ld\n",
-		   (long) sb.st_uid, (long) sb.st_gid);
-	printf("Preferred I/O block size: %ld bytes\n",
-		   (long) sb.st_blksize);
-	printf("File size:                %lld bytes\n",
-		   (long long) sb.st_size);
-	printf("Blocks allocated:         %lld\n",
-		   (long long) sb.st_blocks);
-	printf("Last status change:       %s", ctime(&sb.st_ctime));
-	printf("Last file access:         %s", ctime(&sb.st_atime));
-	printf("Last file modification:   %s", ctime(&sb.st_mtime));
-  
+	char		*ret;
+	size_t	size;
+
+	size = ft_strlen(file1) + ft_strlen(file2) + 1;
+	ret = (char*)malloc(size + 1);
+	ft_strcpy(ret, file1);
+	ft_strcat(ret, "/");
+	ft_strcat(ret, file2);
+	return (ret);
 }
 
 struct stat	return_stat(char *file)
@@ -60,6 +42,6 @@ t_node		return_node(char *parent, char* filename)
 	char *tmp_name;
   
 	tmp_name = cat_filename(parent, filename);
-	return (t_node){parent, filename,
+	return (t_node){ft_strdup(parent), ft_strdup(filename),
 			return_stat(tmp_name)};
 }

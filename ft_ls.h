@@ -7,6 +7,8 @@
 #include <errno.h>
 #include <time.h>
 #include <string.h>
+#include <grp.h>
+#include <pwd.h>
 #include "libft/libft.h"
 
 typedef struct	s_node
@@ -16,6 +18,8 @@ typedef struct	s_node
   struct stat	sb;
 }		t_node;
 
+void		print_stat(struct stat sb, void *flags);
+int	get_name(long uid);
 t_node		return_node(char *parent, char* filename);
 struct stat	return_stat(char *file);
 int		ft_ls(t_list *lst);
