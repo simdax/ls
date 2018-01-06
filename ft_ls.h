@@ -13,13 +13,17 @@
 
 typedef struct	s_node
 {
-  char		*parent;
   char		*name;
+  char		*fullname;
   struct stat	sb;
 }		t_node;
 
+char		*lsperms(int mode);
+int		is_dir(long st_mode);
+void		clean(void *el, size_t len);
+t_list 		*make_list(char **argv);
+t_list		*mkl(DIR *dir, char *file);
 void		print_stat(struct stat sb, void *flags);
-int	get_name(long uid);
 t_node		return_node(char *parent, char* filename);
 struct stat	return_stat(char *file);
 int		ft_ls(t_list *lst);
