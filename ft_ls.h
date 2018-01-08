@@ -9,7 +9,7 @@
 #include <string.h>
 #include <grp.h>
 #include <pwd.h>
-#include "libft/libft.h"
+#include "libft.h"
 #include "libft/list/includes.h"
 
 typedef struct	s_node
@@ -19,6 +19,9 @@ typedef struct	s_node
   struct stat	sb;
 }		t_node;
 
+int		sort_f(t_list *el1, t_list *el2);
+int		get_max_link(t_list *a, int val);
+int		get_max_size(t_list *a, int val);
 void		process(t_list *list, void *f);
 char		*lsperms(int mode);
 char		*ft_date(void *time);
