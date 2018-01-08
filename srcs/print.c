@@ -1,46 +1,79 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   print2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 16:32:54 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/08 16:33:08 by simdax           ###   ########.fr       */
+/*   Created: 2018/01/06 20:50:00 by simdax            #+#    #+#             */
+/*   Updated: 2018/01/08 17:22:42 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		print_stat(struct stat sb, void *flags)
+static int filetypeletter(int mode)
 {
-  printf("%s %d %s %s %lld %s",
-         lsperms(sb.st_mode),
-         (int)sb.st_nlink,
-         getpwuid(sb.st_uid)->pw_name,
-         getgrgid(sb.st_gid)->gr_name,
-         (long long) sb.st_size,
-         ctime(&sb.st_ctime)
-  );
+  char    c;
+
+  if (S_ISREG(mode))
+    c = '-';
+  else if (S_ISDIR(mode))
+    c = 'd';
+  else if (S_ISBLK(mode))
+    c = 'b';
+  else if (S_ISCHR(mode))
+    c = 'c';
+#ifdef S_ISFIFO
+  else if (S_ISFIFO(mode))
+    c = 'p';
+#endif  /* S_ISFIFO */
+#ifdef S_ISLNK
+  else if (S_ISLNK(mode))
+    c = 'l';
+#endif  /* S_ISLNK */
+#ifdef S_ISSOCK
+  else if (S_ISSOCK(mode))
+    c = 's';
+#endif  /* S_ISSOCK */
+#ifdef S_ISDOOR
+  /* Solaris 2.6, etc. */
+  else if (S_ISDOOR(mode))
+    c = 'D';
+#endif  /* S_ISDOOR */
+  else
+    {
+      /* Unknown type -- possibly a regular file? */
+      c = '?';
+    }
+  return(c);
 }
 
-void		print(t_list *el, void *flags)
+char	*lsperms(int mode)
 {
-  char		*name;
-  char		*fullname;
-  struct stat	sb;
+  static const char *rwx[] = {"---", "--x", "-w-", "-wx",
+                              "r--", "r-x", "rw-", "rwx"};
+  static char bits[11];
 
-  sb = ((t_node*)el->content)->sb;
-  name = ((t_node*)el->content)->name;
-  fullname = ((t_node*)el->content)->fullname;
-  print_stat(sb, flags);
-  printf("%s\n", name);
-  /* printf("%d et %d %d %d %d ", ((int*)flags)[0], */
-  /*    ((int*)flags)[1], ((int*)flags)[2], */
-  /*    ((int*)flags)[3], ((int*)flags)[4] */
-  /* ); */
-  if (is_dir(sb.st_mode) &&
-      ft_strcmp(".", name) &&
-      ft_strcmp("..", name))
-    read_dir(fullname, flags);
+  bits[0] = filetypeletter(mode);
+  strcpy(&bits[1], rwx[(mode >> 6)& 7]);
+  strcpy(&bits[4], rwx[(mode >> 3)& 7]);
+  strcpy(&bits[7], rwx[(mode & 7)]);
+  if (mode & S_ISUID)
+    bits[3] = (mode & S_IXUSR) ? 's' : 'S';
+  if (mode & S_ISGID)
+    bits[6] = (mode & S_IXGRP) ? 's' : 'l';
+  if (mode & S_ISVTX)
+    bits[9] = (mode & S_IXOTH) ? 't' : 'T';
+  bits[10] = '\0';
+  return(bits);
+}
+
+char	*ft_date(void *time)
+{
+  char *ret;
+
+  ret = ctime(time);
+  ret[ft_strlen(ret) - 1] = ' ';
+  return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/08 16:35:30 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 16:46:14 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,28 @@ struct stat	return_stat(char *file)
       exit(errno);
     }
 	return (sb);
+}
+
+int		is_dir(long st_mode)
+{
+  return (st_mode & S_IFMT) == S_IFDIR;
+}
+
+int		read_dir(char *file, void *flags)
+{
+  DIR			*dir;
+  t_list		*list;
+
+  if (!(dir = opendir(file)))
+    {
+      printf("%s : ", file); fflush(stdout);
+      perror("erreur d'ouverture");
+      return (errno);
+    }
+  else
+    {
+      process(mkl_dir(dir, file), flags);
+      closedir(dir);
+      return (0);
+    }
 }

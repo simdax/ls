@@ -21,6 +21,7 @@ typedef struct	s_node
 
 void		process(t_list *list, void *f);
 char		*lsperms(int mode);
+char		*ft_date(void *time);
 int		is_dir(long st_mode);
 void		clean(void *el, size_t len);
 t_list 		*mkl_argv(char **argv);
