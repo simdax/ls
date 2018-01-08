@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/01 14:32:45 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/06 19:09:22 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 16:32:02 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ int		read_dir(char *file, void *flags)
     }
   else
     {
-      list = mkl(dir, file);
-      //sort();
+      process(mkl_dir(dir, file), flags);
       closedir(dir);
-      ft_lstiter2(list, print, flags);
-      ft_lstdel(&list, clean);
       return (0);
     }
 }

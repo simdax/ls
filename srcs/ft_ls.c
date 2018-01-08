@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/06 19:19:36 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 16:35:30 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*cat_filename(char *file1, char *file2)
 struct stat	return_stat(char *file)
 {
 	struct stat sb;
-  
+
 	if (lstat(file, &sb) != 0)
     {
       printf("error %s  : ", file);

@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 20:50:00 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/06 20:54:08 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 16:33:39 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,5 @@ char	*lsperms(int mode)
   if (mode & S_ISVTX)
     bits[9] = (mode & S_IXOTH) ? 't' : 'T';
   bits[10] = '\0';
-  return(bits);                          
+  return(bits);
 }
-

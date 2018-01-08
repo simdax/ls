@@ -19,11 +19,12 @@ typedef struct	s_node
   struct stat	sb;
 }		t_node;
 
+void		process(t_list *list, void *f);
 char		*lsperms(int mode);
 int		is_dir(long st_mode);
 void		clean(void *el, size_t len);
-t_list 		*make_list(char **argv);
-t_list		*mkl(DIR *dir, char *file);
+t_list 		*mkl_argv(char **argv);
+t_list		*mkl_dir(DIR *dir, char *file);
 void		print_stat(struct stat sb, void *flags);
 t_node		return_node(char *parent, char* filename);
 struct stat	return_stat(char *file);

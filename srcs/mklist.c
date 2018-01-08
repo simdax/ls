@@ -6,13 +6,13 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 19:01:25 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/06 19:51:08 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 16:30:41 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list		*mkl(DIR *dir, char *file)
+t_list		*mkl_dir(DIR *dir, char *file)
 {
   struct dirent	*dir_inf;
   t_list	*list;
@@ -24,30 +24,26 @@ t_list		*mkl(DIR *dir, char *file)
       node.name = ft_strdup(dir_inf->d_name);
       node.fullname = cat_filename(file, node.name);
       node.sb = return_stat(node.fullname);
-      if (ft_strcmp(".", dir_inf->d_name) && ft_strcmp("..", dir_inf->d_name))
-        ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+      ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
     }
   return (list);
 }
 
-t_list	*make_list(char **argv)
+t_list		*mkl_argv(char **argv)
 {
-	t_node	node;
-	t_list	*list;
+  t_node	node;
+  t_list	*list;
         
-	list = 0;
-	while (*argv)
+  list = 0;
+  while (*argv)
     {
       node.name = ft_strdup(*argv);
-      node.fullname = node.name;
+      node.fullname = ft_strdup(*argv);
       node.sb = return_stat(node.fullname);
-      /* if (is_dir(node.sb.st_mode) && */
-      /*     !ft_strchr("./", node.name[0])) */
-      /*     node.fullname = cat_filename(".", node.name); */
       ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
       ++argv;
     }
-	return (list);
+  return (list);
 }
 
 void		clean(void *el, size_t len)
