@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/08 16:46:14 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 18:16:53 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int		read_dir(char *file, void *flags)
     }
   else
     {
+      printf("%s:\n", file);
+      fflush(stdout);
       process(mkl_dir(dir, file), flags);
       closedir(dir);
       return (0);

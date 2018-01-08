@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:32:54 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/08 18:07:33 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 18:16:25 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		print_stat(struct stat sb, void *flags)
          (long long) sb.st_size,
          ft_date(&sb.st_ctime)
   );
+  fflush(stdout);
 }
 
 void		print(t_list *el, void *flags)
