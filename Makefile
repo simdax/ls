@@ -1,13 +1,12 @@
 NAME = ft_ls
 #LD = -Llibft -lft
-LD = libft/*.o
-INC = -I libft -I .
+LD = libft/*.o libft/list/*.o
+INC = -I libft/list -I libft -I .
 FLAGS = $(INC) $(LD) 
 SRCS = main.c ft_ls.c read_dir.c print.c mklist.c print2.c
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:%.c=objs/%.o)
 
 vpath %.c srcs
-vpath %.o objs
 
 all: $(OBJS)
 	gcc -g3 $(LD) $^ -o $(NAME)
@@ -15,7 +14,7 @@ all: $(OBJS)
 $(NAME): $(OBJS)
 	@make -C libft
 
-%.o:%.c
+objs/%.o:%.c
 	gcc -g3 $(INC) -c $< -o $@
 
 clean:
@@ -31,7 +30,7 @@ debug: all
 	lldb ./$(NAME) padding
 
 tests:
-	@./tests	
+	@.test/tests	
 
 run: all
-	@./test1
+	@./test/test1

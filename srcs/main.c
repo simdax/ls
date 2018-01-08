@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/06 18:46:47 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/08 15:22:01 by simdax           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
   else
     {
       list = make_list(argv);
-      //sort
+      ft_lstsort(list, ft_cmp_strlen);
       ft_lstiter2(list, print, flags);
       ft_lstdel(&list, clean);
     }
