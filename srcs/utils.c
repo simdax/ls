@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/08 18:16:53 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/09 18:24:52 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,35 @@ struct stat	return_stat(char *file)
 
 	if (lstat(file, &sb) != 0)
     {
-      printf("error %s  : ", file);
-      perror("can't get stat of file");
-      exit(errno);
+		printf("error %s  : ", file);
+		perror("can't get stat of file");
+		exit(errno);
     }
 	return (sb);
 }
 
 int		is_dir(long st_mode)
 {
-  return (st_mode & S_IFMT) == S_IFDIR;
+	return (st_mode & S_IFMT) == S_IFDIR;
 }
 
 int		read_dir(char *file, void *flags)
 {
-  DIR			*dir;
-  t_list		*list;
+	DIR			*dir;
+	t_list		*list;
 
-  if (!(dir = opendir(file)))
+	if (!(dir = opendir(file)))
     {
-      printf("%s : ", file); fflush(stdout);
-      perror("erreur d'ouverture");
-      return (errno);
+		printf("%s : ", file); fflush(stdout);
+		perror("erreur d'ouverture");
+		return (errno);
     }
-  else
+	else
     {
-      printf("%s:\n", file);
-      fflush(stdout);
-      process(mkl_dir(dir, file), flags);
-      closedir(dir);
-      return (0);
+		printf("%s:\n", file);
+		fflush(stdout);
+		process(mkl_dir(dir, file), flags);
+		closedir(dir);
+		return (0);
     }
 }
