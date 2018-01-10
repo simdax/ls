@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 15:33:54 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 17:42:52 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ void		print_stat(struct stat sb, void *flags)
 	fflush(stdout);
 }
 
+int			recur(int ret, long mode, char *name, char *fullname)
+{
+	if (is_dir(mode))
+	{
+		if (!ft_strcmp(name, fullname))
+			return (1);
+		return (ret && ft_strcmp(name, ".") && ft_strcmp(name, ".."));
+	}
+	return (0);
+}
+
 void		print(t_list *el, void *p_read)
 {
 	char		*name;
@@ -57,16 +68,18 @@ void		print(t_list *el, void *p_read)
 	sb = ((t_node*)el->content)->sb;
 	name = ((t_node*)el->content)->name;
 	fullname = ((t_node*)el->content)->fullname;
-	if (read->flags[LONG])
-		print_stat(sb, read->sizes);
-	printf("%s\n", name);
-	fflush(stdout);
-	if (read->flags[RECURSIVE] && is_dir(sb.st_mode) &&
-		ft_strcmp(".", name) && ft_strcmp("..", name))
+	if (recur(read->flags[RECURSIVE], sb.st_mode, name, fullname))
 	{
 		read->dirs += 1;
 		read->dirs[0] = fullname;
 	}
+	if ((!ft_strcmp(name, fullname) && is_dir(sb.st_mode)) ||
+		(!read->flags[ALL] && name[0] == '.'))
+		return ;
+	if (read->flags[LONG])
+		print_stat(sb, read->sizes);
+	printf("%s\n", name);
+	fflush(stdout);
 }
 
 void		process(t_list *list, void *p_flags)
@@ -84,7 +97,8 @@ void		process(t_list *list, void *p_flags)
 	read.sizes[1] = ft_lstgetmax(list, 0, get_max_size);
 	read.flags = flags;
 	ft_lstreduce(list, get_blkcnt, &block_size);
-	printf("total %d\n", block_size);
+	if (flags[ALL])
+		printf("total %d\n", block_size);
 	if (flags[TIME_SORT])
 		list = ft_lstsort(list, sort_t);
 	else if (flags[REVERSE])

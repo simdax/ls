@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 15:32:08 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 17:44:45 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ char		*cat_filename(char *file1, char *file2)
 {
 	char	*ret;
 	size_t	size;
+	size_t	size1;
 
-	size = ft_strlen(file1) + ft_strlen(file2) + 1;
+	size1 = ft_strlen(file1);
+	size = size1 + ft_strlen(file2) + 1;
 	ret = (char*)malloc(size + 1);
 	ft_strcpy(ret, file1);
-	ft_strcat(ret, "/");
+	if (file1[size1 - 1] != '/')
+		ft_strcat(ret, "/");
 	ft_strcat(ret, file2);
 	return (ret);
 }
@@ -52,7 +55,7 @@ int			read_dir(char *file, void *flags)
 	{
 		printf("%s : ", file);
 		perror("erreur d'ouverture");
-		return (errno);
+		exit(errno);
 	}
 	else
 	{

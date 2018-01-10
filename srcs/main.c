@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 15:25:45 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 17:09:30 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	take_flags(char ***p_argv, int *arg)
 				arg[index - FLAGS] = 1;
 			else
 			{
-				perror("flags error");
-				exit(errno);
+				printf("Flags error: usage %s", FLAGS);
+				exit(1);
 			}
 			++flags;
 		}
