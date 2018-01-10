@@ -3,6 +3,11 @@
 nbs=( $@ )
 size=$(( ${#nbs[@]} ** 2))
 
+if [ $size == 1 ]; then
+   echo $@
+   exit
+fi
+
 for i in $(seq 0 $(($size - 1))) 
 do
     for j in $(seq 1 ${#nbs[@]})

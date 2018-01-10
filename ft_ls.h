@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 14:11:54 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 14:42:41 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct	s_f
 	char	**dirs;
 }			t_f;
 
-typedef enum	e_flags
+enum			flags
 {
     LONG, REVERSE, RECURSIVE, ALL, TIME_SORT
-}				t_flags;
+};
 
 void		get_blkcnt(void* a, t_list *b);
 int			sort_f(t_list *el1, t_list *el2);
