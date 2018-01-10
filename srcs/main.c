@@ -6,19 +6,11 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/09 18:40:46 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 11:19:58 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-#define FLAGS "lrRat"
-#define NB_FLAGS 5
-
-typedef enum	e_flags
-{
-    LONG, REVERSE, RECURSIVE, ALL, TIME_SORT
-}				t_flags;
 
 void	take_flags(char **argv, int *arg)
 {

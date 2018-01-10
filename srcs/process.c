@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:32:54 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/10 10:59:41 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 11:44:31 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@ typedef struct	s_f
 	int		sizes[2];
 	char	**dirs;
 }				t_f;
+
+static void	r_dir(char **dirs, int *flags)
+{
+	int		i;
+	char	**cpy;
+
+	i = 0;
+	while (ft_strcmp(*dirs, ""))
+	{
+		--dirs;
+		++i;
+	}
+	cpy = dirs;
+	while (--i >= 0)
+	{
+		write(1, "\n", 1);
+		read_dir(*(++dirs), flags);
+	}
+	free(cpy);
+}
 
 void	process(t_list *list, void *f)
 {
@@ -35,19 +55,13 @@ void	process(t_list *list, void *f)
 	printf("total %d\n", block_size);
 	list = ft_lstsort(list, sort_f);
 	ft_lstiter2(list, print, &read);
-	while (ft_strcmp(*read.dirs, ""))
-	{
-		write(1, "\n", 1);
-		read_dir(*read.dirs, flags);
-		--read.dirs;
-	}
-	free(read.dirs);
+	r_dir(read.dirs, flags);
 	ft_lstdel(&list, clean);
 }
 
 void		print_stat(struct stat sb, void *flags)
 {
-	printf("%s  %*d %s %s %*lld %s",
+	printf("%s  %*d %s  %s  %*lld%s",
 		   lsperms(sb.st_mode),
 		   (int)ft_nbrsize(((int*)flags)[0]),
 		   (int)sb.st_nlink,
@@ -78,6 +92,4 @@ void		print(t_list *el, void *flags)
 		((t_f*)flags)->dirs += 1;
 		((t_f*)flags)->dirs[0] = fullname;
 	}
-//		ft_listadd(fullname)
-			//read_dir(fullname, flags);
 }

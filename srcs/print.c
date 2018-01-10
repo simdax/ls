@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 20:50:00 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/10 11:00:07 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 11:10:30 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ char	*lsperms(int mode)
 	static char bits[11];
 
 	bits[0] = filetypeletter(mode);
-	strcpy(&bits[1], rwx[(mode >> 6)& 7]);
-	strcpy(&bits[4], rwx[(mode >> 3)& 7]);
-	strcpy(&bits[7], rwx[(mode & 7)]);
+	ft_strcpy(&bits[1], rwx[(mode >> 6)& 7]);
+	ft_strcpy(&bits[4], rwx[(mode >> 3)& 7]);
+	ft_strcpy(&bits[7], rwx[(mode & 7)]);
 	if (mode & S_ISUID)
 		bits[3] = (mode & S_IXUSR) ? 's' : 'S';
 	if (mode & S_ISGID)
@@ -58,7 +58,7 @@ char	*lsperms(int mode)
 	if (mode & S_ISVTX)
 		bits[9] = (mode & S_IXOTH) ? 't' : 'T';
 	bits[10] = '\0';
-	return(bits);
+	return (bits);
 }
 
 char	*ft_date(void *time)

@@ -29,7 +29,7 @@ re: fclean
 debug: all
 	lldb ./$(NAME) test
 
-tests:
+tests: all
 	@./test/tests	
 
 run: all

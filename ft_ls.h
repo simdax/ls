@@ -1,16 +1,34 @@
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <errno.h>
-#include <time.h>
-#include <string.h>
-#include <grp.h>
-#include <pwd.h>
-#include "libft.h"
-#include "libft/list/includes.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
+/*   Updated: 2018/01/10 11:21:37 by scornaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FT_LS_H
+# define FT_LS_H
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <errno.h>
+# include <time.h>
+# include <string.h>
+# include <grp.h>
+# include <pwd.h>
+# include "libft.h"
+# include "libft/list/includes.h"
+
+# define FLAGS "lrRat"
+# define NB_FLAGS 5
 
 typedef struct	s_node
 {
@@ -18,6 +36,11 @@ typedef struct	s_node
   char		*fullname;
   struct stat	sb;
 }		t_node;
+
+typedef enum	e_flags
+{
+    LONG, REVERSE, RECURSIVE, ALL, TIME_SORT
+}				t_flags;
 
 void		get_blkcnt(void* a, t_list *b);
 int			sort_f(t_list *el1, t_list *el2);
@@ -39,3 +62,5 @@ void		print_stat(struct stat sb, void *flags);
 int			read_dir(char *file, void *flags);
 void		print_dirent(struct dirent *infos);
 char		*cat_filename(char *file1, char *file2);
+
+#endif
