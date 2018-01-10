@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 13:59:23 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 15:32:08 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,36 +30,36 @@ struct stat	return_stat(char *file)
 	struct stat sb;
 
 	if (lstat(file, &sb) != 0)
-    {
+	{
 		printf("error %s  : ", file);
 		perror("can't get stat of file");
 		exit(errno);
-    }
+	}
 	return (sb);
 }
 
-int		is_dir(long st_mode)
+int			is_dir(long st_mode)
 {
 	return (st_mode & S_IFMT) == S_IFDIR;
 }
 
-int		read_dir(char *file, void *flags)
+int			read_dir(char *file, void *flags)
 {
 	DIR			*dir;
 	t_list		*list;
 
 	if (!(dir = opendir(file)))
-    {
-		printf("%s : ", file); fflush(stdout);
+	{
+		printf("%s : ", file);
 		perror("erreur d'ouverture");
 		return (errno);
-    }
+	}
 	else
-    {
+	{
 		printf("%s:\n", file);
 		fflush(stdout);
 		process(mkl_dir(dir, file), flags);
 		closedir(dir);
 		return (0);
-    }
+	}
 }

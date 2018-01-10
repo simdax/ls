@@ -33,4 +33,4 @@ tests: all
 	@cd test && ./tests	
 
 run: all
-	@./ft_ls -l libft
+	@./ft_ls libft

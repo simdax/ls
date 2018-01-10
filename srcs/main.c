@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 14:49:26 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 15:25:45 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ void	take_flags(char ***p_argv, int *arg)
 	index = 0;
 	flags = argv[0];
 	if (flags && flags[0] == '-')
-    {
+	{
 		++flags;
 		while (*flags)
-        {
+		{
 			if ((index = strchr(FLAGS, *flags)))
 				arg[index - FLAGS] = 1;
 			else
-            {
+			{
 				perror("flags error");
 				exit(errno);
-            }
+			}
 			++flags;
-        }
+		}
 		++(*p_argv);
-    }
+	}
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int		*flags;
 	t_list	*list;
@@ -49,9 +49,9 @@ int	main(int argc, char **argv)
 	++argv;
 	take_flags(&argv, flags);
 	if (argc == 1)
-		read_dir(".", &flags);
+		read_dir(".", flags);
 	else
-		process(mkl_argv(argv), &flags);
+		process(mkl_argv(argv), flags);
 	free(flags);
 	return (0);
 }

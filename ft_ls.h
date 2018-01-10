@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 14:42:41 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 15:20:04 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_f
 {
 	int		sizes[2];
 	char	**dirs;
+	int		*flags;
 }			t_f;
 
 enum			flags
@@ -51,6 +52,7 @@ enum			flags
 void		get_blkcnt(void* a, t_list *b);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);
+int			sort_r(t_list *el1, t_list *el2);
 int			get_max_link(t_list *a, int val);
 int			get_max_size(t_list *a, int val);
 void		process(t_list *list, void *f);
