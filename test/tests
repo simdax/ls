@@ -1,13 +1,16 @@
+#!/bin/bash
 
-args=${@:-"l r R a t"}
-options=`./powerset $args`
+diff <(ls -lRa libft) <(./ft_ls libft)
 
-for option in $options
-do
-    echo 
-    echo `tput setaf 5`avec l\(es\) options $option
-    echo -n `tput setaf 2`
-    ls -$option .
-done
 
-#diff <(ls) <()
+# args=${@:-"l r R a t"}
+# options=`./powerset $args`
+
+# for option in $options
+# do
+#     echo 
+#     echo `tput setaf 5`avec l\(es\) options $option
+#     echo -n `tput setaf 2`
+#     ls -$option .
+# done
+

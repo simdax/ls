@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 20:50:00 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/09 18:24:23 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 11:00:07 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,8 @@ static int filetypeletter(int mode)
 	else if (S_ISSOCK(mode))
 		c = 's';
 #endif  /* S_ISSOCK */
-#ifdef S_ISDOOR
-	/* Solaris 2.6, etc. */
-	else if (S_ISDOOR(mode))
-		c = 'D';
-#endif  /* S_ISDOOR */
 	else
-    {
-		/* Unknown type -- possibly a regular file? */
 		c = '?';
-    }
 	return(c);
 }
 
@@ -71,9 +63,9 @@ char	*lsperms(int mode)
 
 char	*ft_date(void *time)
 {
-	char *ret;
+	static char	ret[14];
 
-	ret = ctime(time);
-	ret[ft_strlen(ret) - 1] = ' ';
+	ft_strncpy(ret, ctime(time) + 3, 13);
+	ret[13] = ' ';
 	return (ret);
 }

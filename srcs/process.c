@@ -6,7 +6,7 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:32:54 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/10 10:23:53 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 10:59:41 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	process(t_list *list, void *f)
 
 void		print_stat(struct stat sb, void *flags)
 {
-	printf("%s  %*zu %s %s %*lld %s",
+	printf("%s  %*d %s %s %*lld %s",
 		   lsperms(sb.st_mode),
-		   ft_nbrsize(((int*)flags)[0]),
+		   (int)ft_nbrsize(((int*)flags)[0]),
 		   (int)sb.st_nlink,
 		   getpwuid(sb.st_uid)->pw_name,
 		   getgrgid(sb.st_gid)->gr_name,
-		   ft_nbrsize(((int*)flags)[1]),
+		   (int)ft_nbrsize(((int*)flags)[1]),
 		   (long long) sb.st_size,
 		   ft_date(&sb.st_ctime)
 		);
