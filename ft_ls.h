@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 11:21:37 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 14:11:54 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@
 
 typedef struct	s_node
 {
-  char		*name;
-  char		*fullname;
+  char			*name;
+  char			*fullname;
   struct stat	sb;
 }		t_node;
+
+typedef struct	s_f
+{
+	int		sizes[2];
+	char	**dirs;
+}			t_f;
 
 typedef enum	e_flags
 {
@@ -44,6 +50,7 @@ typedef enum	e_flags
 
 void		get_blkcnt(void* a, t_list *b);
 int			sort_f(t_list *el1, t_list *el2);
+int			sort_t(t_list *el1, t_list *el2);
 int			get_max_link(t_list *a, int val);
 int			get_max_size(t_list *a, int val);
 void		process(t_list *list, void *f);

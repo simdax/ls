@@ -30,7 +30,7 @@ debug: all
 	lldb ./$(NAME) test
 
 tests: all
-	@./test/tests	
+	@cd test && ./tests	
 
 run: all
 	@./ft_ls libft
