@@ -6,11 +6,18 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 18:07:53 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/09 19:06:12 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 10:17:19 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void	get_blkcnt(void* a, t_list *b)
+{
+	t_node		*node = b->content;
+
+	*(blkcnt_t*)a += node->sb.st_blocks;
+}
 
 int	sort_f(t_list *el1, t_list *el2)
 {

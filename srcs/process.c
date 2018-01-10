@@ -6,33 +6,38 @@
 /*   By: simdax </var/spool/mail/simdax>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 16:32:54 by simdax            #+#    #+#             */
-/*   Updated: 2018/01/09 19:18:46 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/10 10:23:53 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-typedef struct s_f
+typedef struct	s_f
 {
 	int		sizes[2];
 	char	**dirs;
-}		t_f;
+}				t_f;
 
 void	process(t_list *list, void *f)
 {
 	int	*flags;
 	int	sizes[2];
 	t_f	read;
-	
+	int block_size;
+
+	block_size = 0;
 	flags = f;
 	read.dirs = malloc(sizeof(char*) * 1000);
 	read.dirs[0] = "";
 	read.sizes[0] = ft_lstgetmax(list, 0, get_max_link);
 	read.sizes[1] = ft_lstgetmax(list, 0, get_max_size);
+	ft_lstreduce(list, get_blkcnt, &block_size);
+	printf("total %d\n", block_size);
 	list = ft_lstsort(list, sort_f);
 	ft_lstiter2(list, print, &read);
 	while (ft_strcmp(*read.dirs, ""))
 	{
+		write(1, "\n", 1);
 		read_dir(*read.dirs, flags);
 		--read.dirs;
 	}
@@ -42,7 +47,7 @@ void	process(t_list *list, void *f)
 
 void		print_stat(struct stat sb, void *flags)
 {
-	printf("%s %*ld %s %s %*lld %s",
+	printf("%s  %*zu %s %s %*lld %s",
 		   lsperms(sb.st_mode),
 		   ft_nbrsize(((int*)flags)[0]),
 		   (int)sb.st_nlink,

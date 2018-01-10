@@ -33,4 +33,5 @@ tests:
 	@.test/tests	
 
 run: all
-	@./test/test1
+	@ls -lRa libft
+	@./ft_ls libft
