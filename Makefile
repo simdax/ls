@@ -33,4 +33,4 @@ tests: all
 	@cd Unit_tests && ./tests	
 
 run: all
-	@./ft_ls
+	@./ft_ls -r

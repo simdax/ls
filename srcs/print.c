@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:25:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 16:59:03 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 17:57:25 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void		print_stat(struct stat sb, char *name, char *fullname, t_infos *infos)
 		free(smlink);
 		smlink = 0;
 	}
-	printf("%s %*d %s  %s  %*lld%s%s%s%s\n",
+	printf("%d\n", infos->max_inodes);
+	printf("%s%c%*d %s  %s  %*lld%s%s%s%s\n",
 		   lsperms(sb.st_mode),
-		   (int)ft_nbrsize(infos->max_inodes),
+		   ' ',
+		   (int)ft_nbrsize(infos->max_inodes) + 1,
 		   (int)sb.st_nlink,
 		   getpwuid(sb.st_uid)->pw_name,
 		   getgrgid(sb.st_gid)->gr_name,
