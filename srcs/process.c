@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 16:33:37 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 17:03:17 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ static void	r_dir(char **dirs, int *flags, int blk_size)
 	free(cpy);
 }
 
-static int		recur(int ret, long mode, char *name, char *fullname)
+static int		recur(int *flags, long mode, char *name, char *fullname)
 {
 	if (is_dir(mode))
 	{
+		if (!flags[ALL] && name[0] == '.')
+			return (0);
 		if (!ft_strcmp(name, fullname))
 			return (1);
-		return (ret && ft_strcmp(name, ".") && ft_strcmp(name, ".."));
+		return (flags[RECURSIVE] && ft_strcmp(name, ".") && ft_strcmp(name, ".."));
 	}
 	return (0);
 }
@@ -67,7 +69,7 @@ void		print(t_list *el, void *p_read)
 	sb = ((t_node*)el->content)->sb;
 	name = ((t_node*)el->content)->name;
 	fullname = ((t_node*)el->content)->fullname;
-	if (recur(infos->flags[RECURSIVE], sb.st_mode, name, fullname))
+	if (recur(infos->flags, sb.st_mode, name, fullname))
 	{
 		infos->dirs += 1;
 		infos->dirs[0] = fullname;
