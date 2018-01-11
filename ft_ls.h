@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 19:45:39 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:57:30 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ enum			flags
     LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
 };
 
-void		get_blkcnt(void* a, t_list *b);
+void		get_blkcnt(void* a, t_list *b, void *opts);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);
 int			sort_r(t_list *el1, t_list *el2);

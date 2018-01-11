@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 19:49:14 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:55:23 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void		init_infos(t_infos *infos, t_list *list, int *flags)
 	infos->dirs[0] = "";
 	infos->max_inodes = ft_lstgetmax(list, 0, get_max_link, flags);
 	infos->max_sizes = ft_lstgetmax(list, 0, get_max_size, flags);
-	ft_lstreduce(list, get_blkcnt, &(infos->block_size));
+	ft_lstreduce(list, get_blkcnt, &(infos->block_size), flags);
 	infos->flags = flags;	
 }
 
