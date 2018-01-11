@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 15:20:04 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 13:42:18 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ typedef struct	s_node
   struct stat	sb;
 }		t_node;
 
-typedef struct	s_f
+typedef struct	s_infos
 {
-	int		sizes[2];
-	char	**dirs;
-	int		*flags;
-}			t_f;
+	int			max_sizes;
+	int			max_inodes;
+	int			block_size;
+	char		**dirs;
+	int			*flags;
+}			t_infos;
 
 enum			flags
 {
@@ -62,12 +64,11 @@ int			is_dir(long st_mode);
 void		clean(void *el, size_t len);
 t_list 		*mkl_argv(char **argv);
 t_list		*mkl_dir(DIR *dir, char *file);
-void		print_stat(struct stat sb, void *flags);
+void		print_stat(struct stat sb, t_infos *i);
 t_node		return_node(char *parent, char* filename);
 struct stat	return_stat(char *file);
 int			ft_ls(t_list *lst);
  void		print(t_list *el, void *flags);
-void		print_stat(struct stat sb, void *flags);
 int			read_dir(char *file, void *flags);
 void		print_dirent(struct dirent *infos);
 char		*cat_filename(char *file1, char *file2);
