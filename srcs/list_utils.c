@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:24:49 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 14:04:36 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:51:13 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,25 +37,29 @@ int		sort_t(t_list *el1, t_list *el2)
 
 	one = el1->content;
 	two = el2->content;
-	return (one->sb.st_ctime < two->sb.st_ctime);
+	return (one->sb.st_ctime > two->sb.st_ctime);
 }
 
-int		get_max_link(t_list *a, int val)
+int		get_max_link(t_list *a, int val, void *flags)
 {
 	t_node	*node;
 	int		nb_link;
 
 	node = a->content;
-	nb_link = (int)node->sb.st_nlink;
+	if (!((int*)flags)[ALL] && node->name[0] == '.')
+		return (val);
+	nb_link = node->sb.st_nlink;
 	return (nb_link > val ? nb_link : val);
 }
 
-int		get_max_size(t_list *a, int val)
+int		get_max_size(t_list *a, int val, void *flags)
 {
 	t_node	*node;
 	int		size;
 
 	node = a->content;
+	if (!((int*)flags)[ALL] && node->name[0] == '.')
+		return (val);
 	size = (int)node->sb.st_size;
 	return (size > val ? size : val);
 }

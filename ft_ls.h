@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 16:36:29 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 19:45:39 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void		get_blkcnt(void* a, t_list *b);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);
 int			sort_r(t_list *el1, t_list *el2);
-int			get_max_link(t_list *a, int val);
-int			get_max_size(t_list *a, int val);
+int			get_max_link(t_list *a, int val, void *f);
+int			get_max_size(t_list *a, int val, void *f);
 void		process(t_list *list, void *f);
 char		*lsperms(int mode);
 char		*ft_date(void *time);
