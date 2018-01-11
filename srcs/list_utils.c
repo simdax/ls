@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:24:49 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 10:16:25 by simdax           ###   ########.fr       */
+/*   Updated: 2018/01/11 12:31:37 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		sort_f(t_list *el1, t_list *el2)
 
 	one = el1->content;
 	two = el2->content;
-	return (ft_strcmpi(one->name, two->name) < 0);
+	return (!ft_strcmp(one->name, two->name));
 }
 
 int		sort_r(t_list *el1, t_list *el2)
