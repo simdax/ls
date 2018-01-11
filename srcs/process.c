@@ -6,13 +6,15 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 13:42:59 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 16:33:37 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	r_dir(char **dirs, int *flags)
+int	g_first = 0;
+
+static void	r_dir(char **dirs, int *flags, int blk_size)
 {
 	int		i;
 	char	**cpy;
@@ -20,25 +22,30 @@ static void	r_dir(char **dirs, int *flags)
 	i = 0;
 	while (ft_strcmp(*dirs, ""))
 	{
-		/* if (flags[REVERSE]) */
-		/* { */
-		/* 	write(1, "\n", 1); */
-		/* 	read_dir(*dirs, flags); */
-		/* } */
 		--dirs;
 		++i;
 	}
 	cpy = dirs;
-	if (!flags[REVERSE])
-		while (--i >= 0)
-		{
+	while (--i >= 0)
+	{
+		++dirs;
+		if (g_first)
 			write(1, "\n", 1);
-			read_dir(*(++dirs), flags);
+		else
+			g_first = 1;
+		if (!flags[ALONE])
+		{
+			printf("%s:\n", *dirs);
+			fflush(stdout);
 		}
+		else
+			flags[ALONE] = 0;
+		read_dir(*dirs, flags);
+	}
 	free(cpy);
 }
 
-int			recur(int ret, long mode, char *name, char *fullname)
+static int		recur(int ret, long mode, char *name, char *fullname)
 {
 	if (is_dir(mode))
 	{
@@ -69,32 +76,45 @@ void		print(t_list *el, void *p_read)
 		(!infos->flags[ALL] && name[0] == '.'))
 		return ;
 	if (infos->flags[LONG])
-	{
-		print_stat(sb, infos);
-	}
-	printf("%s\n", name);
+		print_stat(sb, name, fullname, infos);
+	else
+		printf("%s\n", name);
 	fflush(stdout);
+}
+
+static void		init_infos(t_infos *infos, t_list *list, int *flags)
+{
+	infos->block_size = 0;
+	infos->dirs = malloc(sizeof(char*) * 1000);
+	infos->dirs[0] = "";
+	infos->max_inodes = ft_lstgetmax(list, 0, get_max_link);
+	infos->max_sizes = ft_lstgetmax(list, 0, get_max_size);
+	ft_lstreduce(list, get_blkcnt, &(infos->block_size));
+	infos->flags = flags;	
 }
 
 void		process(t_list *list, void *p_flags)
 {
-	int		sizes[2];
 	t_infos	infos;
 	int		*flags;
+	t_list	*tmp_list;
 
 	flags = p_flags;
-	infos.block_size = 0;
-	infos.dirs = malloc(sizeof(char*) * 1000);
-	infos.dirs[0] = "";
-	infos.max_inodes = ft_lstgetmax(list, 0, get_max_link);
-	infos.max_sizes = ft_lstgetmax(list, 0, get_max_size);
-	ft_lstreduce(list, get_blkcnt, &infos.block_size);
-	infos.flags = flags;
+	init_infos(&infos, list, flags);
 	if (flags[TIME_SORT])
 		list = ft_lstsort(list, sort_t);
 	else
 		list = ft_lstsort(list, sort_f);
+	if (flags[REVERSE])
+	{
+		tmp_list = list;
+		list = ft_cpyrev(list);
+		ft_lstdel(&tmp_list, clean);
+	}
+	if (flags[LONG] && !flags[ALONE])
+		printf("total %d\n", infos.block_size);
+	fflush(stdout);
 	ft_lstiter2(list, print, &infos);
-	r_dir(infos.dirs, flags);
+	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
 }

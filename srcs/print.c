@@ -6,16 +6,25 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:25:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 13:42:32 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 16:53:18 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		print_stat(struct stat sb, t_infos *infos)
+void		print_stat(struct stat sb, char *name, char *fullname, t_infos *infos)
 {
-	printf("total %d\n%s  %*d %s  %s  %*lld%s",
-		   infos->block_size,
+	char *smlink;
+
+	smlink = malloc(1000);
+	if (S_ISLNK(sb.st_mode))
+		readlink(fullname, smlink, 1000);	
+	else
+	{
+		free(smlink);
+		smlink = 0;
+	}
+	printf("%s  %*d %s  %s  %*lld%s%s%s%s\n",
 		   lsperms(sb.st_mode),
 		   (int)ft_nbrsize(infos->max_inodes),
 		   (int)sb.st_nlink,
@@ -23,11 +32,15 @@ void		print_stat(struct stat sb, t_infos *infos)
 		   getgrgid(sb.st_gid)->gr_name,
 		   (int)ft_nbrsize(infos->max_sizes),
 		   (long long)sb.st_size,
-		   ft_date(&sb.st_ctime));
+		   ft_date(&sb.st_ctime),
+		   name,
+		   S_ISLNK(sb.st_mode) ? " -> " : "",
+		   smlink ? smlink : "");	   
 	fflush(stdout);
+	free(smlink);
 }
 
-static int	filetypeletter(int mode)
+int		filetypeletter(int mode)
 {
 	char	c;
 
