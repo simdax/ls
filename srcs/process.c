@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 17:03:17 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/11 17:15:54 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static int		recur(int *flags, long mode, char *name, char *fullname)
 {
 	if (is_dir(mode))
 	{
-		if (!flags[ALL] && name[0] == '.')
-			return (0);
 		if (!ft_strcmp(name, fullname))
 			return (1);
+		if (!flags[ALL] && name[0] == '.')
+			return (0);
 		return (flags[RECURSIVE] && ft_strcmp(name, ".") && ft_strcmp(name, ".."));
 	}
 	return (0);
