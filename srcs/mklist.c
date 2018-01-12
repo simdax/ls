@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/10 17:12:28 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 17:20:32 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ t_list		*mkl_argv(char **argv)
 {
 	t_node	node;
 	t_list	*list;
-
+	t_list	*tmp;
+	
 	list = 0;
 	while (*argv)
 	{
 		node.name = ft_strdup(*argv);
 		node.fullname = ft_strdup(*argv);
 		node.sb = return_stat(node.fullname);
-		ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+		tmp = ft_lstnew(&node, sizeof(t_node));
+		if (!tmp)
+			clean(&node, sizeof(node));
+		ft_lstadd(&list, tmp);
 		++argv;
 	}
 	return (list);
@@ -50,10 +54,11 @@ void		clean(void *el, size_t len)
 {
 	t_node *e;
 
-	e = (t_node*)el;
+	e = el;
 	free(e->name);
 	e->name = NULL;
 	free(e->fullname);
 	e->fullname = NULL;
 	ft_bzero(el, len);
+	free(e);
 }

@@ -1,65 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
+/*   Updated: 2018/01/12 16:09:55 by scornaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <math.h>
 
-unsigned get_term_width( void ) {
-  int max_x;
-  int max_y;
+unsigned get_term_width(void)
+{
+	int max_x;
+	int max_y;
 
-  initscr();
-  getmaxyx( stdscr, max_y, max_x );
-  endwin();
-  if ( max_x == -1 )
+	initscr();
+	getmaxyx(stdscr, max_y, max_x);
+	endwin();
+	if (max_x == -1)
     {
-      fprintf( stderr, "getmaxyx() failed\n" );
-      return (0);
+		fprintf(stderr, "getmaxyx() failed\n");
+		return (0);
     }
-  return (max_x);
+	return (max_x);
 }
 
 int	get_max(int argc, char **argv)
 {
-  int	*sizes;
-  int	max;
-  int	cumul;
+	int	*sizes;
+	int	max;
+	int	cumul;
   
-  max = 0;
-  cumul = 0;
-  sizes = (int*)malloc(sizeof(int) * argc + 1);
-  sizes[argc] = -1;
-  while (--argc >= 0)
-      sizes[argc] = strlen(*argv++);
-  while (*sizes != -1)
+	max = 0;
+	cumul = 0;
+	sizes = (int*)malloc(sizeof(int) * argc + 1);
+	sizes[argc] = -1;
+	while (--argc >= 0)
+		sizes[argc] = strlen(*argv++);
+	while (*sizes != -1)
     {
-      max = *sizes > max ? *sizes : max;
-      //cumul += *sizes + *sizes % 4;
-      //      printf("%d\n", cumul);
-      ++sizes;
+		max = *sizes > max ? *sizes : max;
+		++sizes;
     }
-  return (max);
+	return (max + 8 - max % 8);
 }
 
-void	print_padded(char **blabla, int max, int width)
+void print_tab(int max, char **blabla, int cols, int space)
 {
-  int cumul;
+	int		i = 0;
+	int		j = 0;
+	int		k = 0;
 
-  cumul = 0;
-  while (*blabla)
-    {
-      cumul += strlen(*blabla);
-      printf("%s\t", *blabla);
-      if (cumul > max)
-        {
-          cumul = 0;
-          printf("\n");
-        }
-      ++blabla;
-    }  
+	while (i < max)
+	{
+		if (j < max)
+		{
+			printf("%-*s", space, blabla[j]);
+			j += cols;
+			++i;
+		}
+		else
+		{
+			printf("\n");
+			j = ++k;
+		}
+	}
+	printf("\n");
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-  ++argv; --argc;
-  print_padded(argv, get_max(argc, argv), get_term_width());
+	int max;
+	int width;
+	int cols;
+	
+	++argv; --argc;
+	max = get_max(argc, argv);
+	width = get_term_width();
+	print_tab(argc, argv, (argc / (width / max)) + 1, max);
 }

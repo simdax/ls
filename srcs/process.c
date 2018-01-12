@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 19:55:23 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 16:53:50 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,4 @@ void		process(t_list *list, void *p_flags)
 	ft_lstiter2(list, print, &infos);
 	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
-	/* if (tmp_list) */
-	/* 	ft_lstdel(&tmp_list, clean); */
 }

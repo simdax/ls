@@ -1,0 +1,11 @@
+#!/bin/bash
+
+test ()
+{
+	echo GO
+	ls $1
+	gcc -g3 -lm -lncurses main.c && ./a.out `ls $1`
+}
+
+test /
+test ~
