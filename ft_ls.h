@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 19:57:30 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:09:34 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,32 @@ typedef struct	s_infos
 {
 	int			max_sizes;
 	int			max_inodes;
+	int			max_len;
 	int			block_size;
 	char		**dirs;
+	char		**all_files;
 	int			*flags;
 }			t_infos;
 
 enum			flags
 {
-    LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
+	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
 };
 
+int			print_padded(int argc, char **argv);
 void		get_blkcnt(void* a, t_list *b, void *opts);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);
 int			sort_r(t_list *el1, t_list *el2);
 int			get_max_link(t_list *a, int val, void *f);
+int			get_max_len(t_list *a, int val, void *f);
 int			get_max_size(t_list *a, int val, void *f);
 void		process(t_list *list, void *f);
 char		*lsperms(int mode);
 char		*ft_date(void *time);
 int			is_dir(long st_mode);
 void		clean(void *el, size_t len);
-t_list 		*mkl_argv(char **argv);
+t_list		*mkl_argv(char **argv);
 t_list		*mkl_dir(DIR *dir, char *file);
 void		print_stat(struct stat sb, char *name, char *fullname, t_infos *i);
 t_node		return_node(char *parent, char* filename);

@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:24:49 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 20:02:14 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:02:22 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ int		get_max_link(t_list *a, int val, void *flags)
 		return (val);
 	nb_link = node->sb.st_nlink;
 	return (nb_link > val ? nb_link : val);
+}
+
+int		get_max_len(t_list *a, int val, void *flags)
+{
+	t_node	*node;
+	int		len;
+
+	node = a->content;
+	if (!((int*)flags)[ALL] && node->name[0] == '.')
+		return (val);
+	len = ft_strlen(node->name);
+	return (len > val ? len : val);
 }
 
 int		get_max_size(t_list *a, int val, void *flags)

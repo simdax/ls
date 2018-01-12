@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 16:53:50 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:08:40 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void		print(t_list *el, void *p_read)
 	if (infos->flags[LONG])
 		print_stat(sb, name, fullname, infos);
 	else
-		printf("%s\n", name);
+	/* { */
+	/* 	infos->all_files =  */
+	/* } */
+	printf("%s\n", name);
 	fflush(stdout);
 }
 
@@ -91,6 +94,7 @@ static void		init_infos(t_infos *infos, t_list *list, int *flags)
 	infos->dirs[0] = "";
 	infos->max_inodes = ft_lstgetmax(list, 0, get_max_link, flags);
 	infos->max_sizes = ft_lstgetmax(list, 0, get_max_size, flags);
+	infos->max_len = ft_lstgetmax(list, 0, get_max_len, flags);
 	ft_lstreduce(list, get_blkcnt, &(infos->block_size), flags);
 	infos->flags = flags;	
 }
@@ -117,6 +121,8 @@ void		process(t_list *list, void *p_flags)
 		printf("total %d\n", infos.block_size);
 	fflush(stdout);
 	ft_lstiter2(list, print, &infos);
+	/* if (!flags[LONG]) */
+	/* 	print_padded(infos->all_files); */
 	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
 }

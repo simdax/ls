@@ -6,11 +6,43 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/11 15:01:56 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:09:18 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+size_t		size_of_lst(t_list *lst)
+{
+	size_t	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		++i;
+	}
+	return (i);
+}
+
+char		**array_from_list(t_list *lst)
+{
+	char	**ret;
+	int		size;
+	int		i;
+
+	i = 0;
+	size = size_of_lst(lst);
+	ret = (char**)malloc(sizeof(char*) * (size + 1));
+	while (i < size)
+	{
+		ret[i] = ft_strdup(((t_node*)lst->content)->name);
+		lst = lst->next;
+		++i;
+	}
+	ret[size] = 0;
+	return (ret);
+}
 
 char		*cat_filename(char *file1, char *file2)
 {

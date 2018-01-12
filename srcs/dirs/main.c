@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 16:09:55 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:10:26 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void print_tab(int max, char **blabla, int cols, int space)
 	printf("\n");
 }
 
-int		main(int argc, char **argv)
+void		print_padded(int argc, char **argv)
 {
 	int max;
 	int width;
