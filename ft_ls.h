@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 18:09:34 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 10:59:25 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <grp.h>
 # include <pwd.h>
+#include <ncurses.h>
 # include "libft.h"
 # include "libft/list/includes.h"
 
@@ -53,7 +54,9 @@ enum			flags
 	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
 };
 
-int			print_padded(int argc, char **argv);
+size_t		size_of_lst(t_list *lst);
+char		**array_from_list(t_list *lst);
+int			print_padded(t_list *list);
 void		get_blkcnt(void* a, t_list *b, void *opts);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);

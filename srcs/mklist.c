@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 17:20:32 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 10:51:40 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void		clean(void *el, size_t len)
 	e->name = NULL;
 	free(e->fullname);
 	e->fullname = NULL;
-	ft_bzero(el, len);
 	free(e);
+	ft_bzero(e, len);
 }

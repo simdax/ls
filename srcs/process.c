@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 18:08:40 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/12 18:22:41 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void		print(t_list *el, void *p_read)
 		return ;
 	if (infos->flags[LONG])
 		print_stat(sb, name, fullname, infos);
-	else
+//	else
 	/* { */
 	/* 	infos->all_files =  */
 	/* } */
-	printf("%s\n", name);
+//	printf("%s\n", name);
 	fflush(stdout);
 }
 
@@ -121,8 +121,8 @@ void		process(t_list *list, void *p_flags)
 		printf("total %d\n", infos.block_size);
 	fflush(stdout);
 	ft_lstiter2(list, print, &infos);
-	/* if (!flags[LONG]) */
-	/* 	print_padded(infos->all_files); */
+	if (!flags[LONG])
+		print_padded(list);
 	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
 }
