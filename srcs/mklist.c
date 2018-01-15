@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:58:10 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 16:28:42 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_list		*mkl_dir(DIR *dir, char *file)
 		node.fullname = cat_filename(file, node.name);
 		if ((return_stat(node.fullname, &node.sb)))
 			ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+		else
+		{
+			free(node.name);
+			free(node.fullname);
+		}
 	}
 	return (list);
 }
@@ -42,6 +47,11 @@ t_list		*mkl_argv(char **argv)
 		node.fullname = ft_strdup(*argv);
 		if ((return_stat(node.fullname, &node.sb)))
 			ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+		else
+		{
+			free(node.name);
+			free(node.fullname);
+		}
 		++argv;
 	}
 	return (list);
