@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:26:25 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:48:01 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			print(t_list *el, void *p_read)
 	t_infos		*infos;
 
 	infos = (t_infos*)p_read;
-	sb = ((t_node*)el->content)->sb;
+	ft_memcpy(&sb, &((t_node*)el->content)->sb, sizeof(struct stat));
 	name = ((t_node*)el->content)->name;
 	fullname = ((t_node*)el->content)->fullname;
 	if (recur(infos->flags, sb.st_mode, name, fullname))

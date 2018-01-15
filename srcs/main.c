@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 14:57:57 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:49:06 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	take_flags(char ***p_argv, int *argc, int *arg)
 		++flags;
 		while (*flags)
 		{
-			if ((index = strchr(FLAGS, *flags)))
+			if ((index = ft_strchr(FLAGS, *flags)))
 				arg[index - FLAGS] = 1;
 			else
 			{
