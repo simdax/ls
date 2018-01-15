@@ -6,11 +6,21 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 14:08:15 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:10:26 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		get_blkcnt(void *a, t_list *b, void *flags)
+{
+	t_node		*node;
+
+	node = b->content;
+	if (!((int*)flags)[ALL] && node->name[0] == '.')
+		return ;
+	*(blkcnt_t*)a += node->sb.st_blocks;
+}
 
 char		*cat_filename(char *file1, char *file2)
 {
@@ -56,13 +66,12 @@ int			read_dir(char *file, void *flags)
 		printf("oups, %s : ", file);
 		fflush(stdout);
 		perror("erreur d'ouverture");
-		return (1);
-//		exit(errno);
+		return (0);
 	}
 	else
 	{
 		process(mkl_dir(dir, file), flags);
 		closedir(dir);
-		return (0);
+		return (1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:00:28 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:06:27 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_list		*mkl_argv(char **argv)
 	t_node	node;
 	t_list	*list;
 	t_list	*tmp;
-	
+
 	list = 0;
 	while (*argv)
 	{

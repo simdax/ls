@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 13:38:21 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:11:04 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_first = 0;
 
-static void	r_dir(char **dirs, int *flags, int blk_size)
+static void		r_dir(char **dirs, int *flags, int blk_size)
 {
 	int		i;
 	char	**cpy;
@@ -34,10 +34,7 @@ static void	r_dir(char **dirs, int *flags, int blk_size)
 		else
 			g_first = 1;
 		if (!flags[ALONE])
-		{
 			printf("%s:\n", *dirs);
-			fflush(stdout);
-		}
 		else
 			flags[ALONE] = 0;
 		read_dir(*dirs, flags);
@@ -53,12 +50,13 @@ static int		recur(int *flags, long mode, char *name, char *fullname)
 			return (1);
 		if (!flags[ALL] && name[0] == '.')
 			return (0);
-		return (flags[RECURSIVE] && ft_strcmp(name, ".") && ft_strcmp(name, ".."));
+		return (flags[RECURSIVE] && ft_strcmp(name, ".")
+				&& ft_strcmp(name, ".."));
 	}
 	return (0);
 }
 
-void		print(t_list *el, void *p_read)
+void			print(t_list *el, void *p_read)
 {
 	char		*name;
 	char		*fullname;
@@ -91,10 +89,10 @@ static void		init_infos(t_infos *infos, t_list *list, int *flags)
 	infos->max_sizes = ft_lstgetmax(list, 0, get_max_size, flags);
 	infos->max_len = ft_lstgetmax(list, 0, get_max_len, flags);
 	ft_lstreduce(list, get_blkcnt, &(infos->block_size), flags);
-	infos->flags = flags;	
+	infos->flags = flags;
 }
 
-void		process(t_list *list, void *p_flags)
+void			process(t_list *list, void *p_flags)
 {
 	t_infos	infos;
 	int		*flags;

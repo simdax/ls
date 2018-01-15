@@ -6,21 +6,11 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:24:49 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 18:02:22 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:02:38 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void	get_blkcnt(void *a, t_list *b, void *flags)
-{
-	t_node		*node;
-
-	node = b->content;
-	if (!((int*)flags)[ALL] && node->name[0] == '.')
-		return ;
-	*(blkcnt_t*)a += node->sb.st_blocks;
-}
 
 int		sort_f(t_list *el1, t_list *el2)
 {
