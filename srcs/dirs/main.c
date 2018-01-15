@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 11:12:02 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:11:45 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,17 @@ unsigned get_term_width(void)
 
 int	get_max(int argc, char **argv)
 {
-	int	*sizes;
+	int len;
 	int	max;
-	int	cumul;
+	int	i;
   
 	max = 0;
-	cumul = 0;
-	sizes = (int*)malloc(sizeof(int) * argc + 1);
-	sizes[argc] = -1;
-	while (--argc >= 0)
-		sizes[argc] = strlen(*argv++);
-	while (*sizes != -1)
+	i = 0;
+	while (i < argc)
     {
-		max = *sizes > max ? *sizes : max;
-		++sizes;
+		len = ft_strlen(*argv++);
+		max = len > max ? len : max;
+		++i;
     }
 	return (max + 8 - max % 8);
 }
@@ -89,5 +86,6 @@ int		print_padded(t_list *list)
 	
 	array = array_from_list(list);
 	p_print(size_of_lst(list), array);
+	ft_free_strsplit(array);
 	return (0);
 }

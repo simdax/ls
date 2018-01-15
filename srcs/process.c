@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/12 18:22:41 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 12:52:56 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,6 @@ void		print(t_list *el, void *p_read)
 		return ;
 	if (infos->flags[LONG])
 		print_stat(sb, name, fullname, infos);
-//	else
-	/* { */
-	/* 	infos->all_files =  */
-	/* } */
-//	printf("%s\n", name);
 	fflush(stdout);
 }
 
