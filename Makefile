@@ -9,10 +9,8 @@ OBJS = $(SRCS:%.c=objs/%.o)
 vpath %.c srcs
 
 all: $(OBJS)
-	gcc -g3  -lm -lncurses $(LD) $^ -o $(NAME)
-
-$(NAME): $(OBJS)
 	@make -C libft
+	gcc -g3  -lm -lncurses $(LD) $^ -o $(NAME)
 
 objs/%.o:%.c
 	gcc -g3 $(INC) -c $< -o $@
