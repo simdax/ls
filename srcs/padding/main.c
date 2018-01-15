@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:30:06 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:41:13 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int			print_padded(t_list *list, int all_flag)
 	
 	array = array_from_list(list, all_flag);
 	p_print(famlen(array), array);
-	free(array);
+	free_fam(array);
 	return (0);
 }

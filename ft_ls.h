@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:26:47 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:40:56 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct	file_and_mode_s
 }				file_and_mode_t;
 
 int					famlen(file_and_mode_t *str);
-void				ft_free_fam(file_and_mode_t *str);
+void				free_fam(file_and_mode_t *str);
 file_and_mode_t		*array_from_list(t_list *lst, int all_flag);
 char				*print_color(char *name, int mode);
 int					get_color(int mode);

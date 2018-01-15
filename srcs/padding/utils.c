@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:08:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:04:56 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 17:42:10 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int					famlen(file_and_mode_t *str)
 	while ((str++)->mode)
 		++i;
 	return (i);
+}
+
+void			free_fam(file_and_mode_t *fam)
+{	
+	file_and_mode_t	*cpy;
+
+	cpy = fam;
+	while (fam->mode)
+		free((fam++)->name);
+	free(cpy);
 }
 
 file_and_mode_t		*array_from_list(t_list *lst, int all_flag)
