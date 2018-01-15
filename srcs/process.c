@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:11:04 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:26:25 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			print(t_list *el, void *p_read)
 static void		init_infos(t_infos *infos, t_list *list, int *flags)
 {
 	infos->block_size = 0;
-	infos->dirs = malloc(sizeof(char*) * 1000);
+	infos->dirs = malloc(sizeof(char*) * 1000000);
 	infos->dirs[0] = "";
 	infos->max_inodes = ft_lstgetmax(list, 0, get_max_link, flags);
 	infos->max_sizes = ft_lstgetmax(list, 0, get_max_size, flags);

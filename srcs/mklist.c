@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:06:27 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:58:10 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_list		*mkl_dir(DIR *dir, char *file)
 	{
 		node.name = ft_strdup(dir_inf->d_name);
 		node.fullname = cat_filename(file, node.name);
-		node.sb = return_stat(node.fullname);
-		ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+		if ((return_stat(node.fullname, &node.sb)))
+			ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
 	}
 	return (list);
 }
@@ -40,8 +40,8 @@ t_list		*mkl_argv(char **argv)
 	{
 		node.name = ft_strdup(*argv);
 		node.fullname = ft_strdup(*argv);
-		node.sb = return_stat(node.fullname);
-		ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
+		if ((return_stat(node.fullname, &node.sb)))
+			ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
 		++argv;
 	}
 	return (list);
@@ -57,5 +57,4 @@ void		clean(void *el, size_t len)
 	free(e->fullname);
 	e->fullname = NULL;
 	free(e);
-	ft_bzero(e, len);
 }

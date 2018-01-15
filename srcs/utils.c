@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:10:26 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:43:25 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,15 @@ char		*cat_filename(char *file1, char *file2)
 	return (ret);
 }
 
-struct stat	return_stat(char *file)
+int			return_stat(char *file, struct stat *sb)
 {
-	struct stat sb;
-
-	if (lstat(file, &sb) != 0)
+	if (lstat(file, sb) != 0)
 	{
 		printf("error %s  : ", file);
 		perror("can't get stat of file");
-		exit(errno);
+		return (0);
 	}
-	return (sb);
+	return (1);
 }
 
 int			is_dir(long st_mode)

@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 13:43:08 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 15:45:03 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_list		*mkl_argv(char **argv);
 t_list		*mkl_dir(DIR *dir, char *file);
 void		print_stat(struct stat sb, char *name, char *fullname, t_infos *i);
 t_node		return_node(char *parent, char* filename);
-struct stat	return_stat(char *file);
+int			return_stat(char *file, struct stat *sb);
 int			ft_ls(t_list *lst);
 void		print(t_list *el, void *flags);
 int			read_dir(char *file, void *flags);
