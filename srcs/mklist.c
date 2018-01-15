@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 10:51:40 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:35:58 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ t_list		*mkl_argv(char **argv)
 		node.fullname = ft_strdup(*argv);
 		node.sb = return_stat(node.fullname);
 		tmp = ft_lstnew(&node, sizeof(t_node));
-		if (!tmp)
-			clean(&node, sizeof(node));
-		ft_lstadd(&list, tmp);
+		ft_lstadd(&list, ft_lstnew(&node, sizeof(t_node)));
 		++argv;
 	}
 	return (list);

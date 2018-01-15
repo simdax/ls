@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 10:59:25 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/15 13:43:08 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ enum			flags
 };
 
 size_t		size_of_lst(t_list *lst);
-char		**array_from_list(t_list *lst);
-int			print_padded(t_list *list);
+char		**array_from_list(t_list *lst, int flag);
+int			print_padded(t_list *list, int flag);
 void		get_blkcnt(void* a, t_list *b, void *opts);
 int			sort_f(t_list *el1, t_list *el2);
 int			sort_t(t_list *el1, t_list *el2);

@@ -3,7 +3,7 @@ NAME = ft_ls
 LD = libft/libft.a
 INC = -I libft/list -I libft -I .
 FLAGS = $(INC) $(LD)
-SRCS = main.c utils.c print.c mklist.c process.c list_utils.c dirs/main.c
+SRCS = main.c utils.c print.c mklist.c process.c list_utils.c padding/main.c padding/utils.c
 OBJS = $(SRCS:%.c=objs/%.o)
 
 vpath %.c srcs
