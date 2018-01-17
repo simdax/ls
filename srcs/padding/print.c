@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:25:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:06:29 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 16:00:56 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void		print_stat(struct stat sb, char *name,
 		free(smlink);
 		smlink = 0;
 	}
-	printf("\e[37m%s%c%*d %s  %s  %*lld%s\e[%dm%s%s%s\n",
+	ft_printf(
+		"\e[37m%s%c%*d %s  %s  %*lld%s\e[%dm%s%s%s\n\e[37m",
 			lsperms(sb.st_mode),
 			' ',
 			(int)ft_nbrsize(infos->max_inodes) + 1,
@@ -35,11 +36,10 @@ void		print_stat(struct stat sb, char *name,
 			(int)ft_nbrsize(infos->max_sizes),
 			(long long)sb.st_size,
 			ft_date(&sb.st_ctime),
-			get_color(sb.st_mode),
+			get_color(sb),
 			name,
 			S_ISLNK(sb.st_mode) ? " -> " : "",
 			smlink ? smlink : "");
-	fflush(stdout);
 	free(smlink);
 }
 

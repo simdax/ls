@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 13:43:31 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 16:02:33 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ void		print_tab(int max, t_node **blabla, int cols, int space)
 	{
 		if (j < max)
 		{
-			printf("\e[%dm%-*s", get_color(blabla[j]->sb.st_mode),
+			ft_printf("\e[%dm%-*s\e[37m", get_color(blabla[j]->sb),
 				   space, blabla[j]->name);
-			fflush(stdout);
 			j += cols;
 			++i;
 		}

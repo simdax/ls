@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:47:12 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 15:43:25 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 15:53:36 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			return_stat(char *file, struct stat *sb)
 {
 	if (lstat(file, sb) != 0)
 	{
-		printf("error %s  : ", file);
+		ft_printf("error %s  : ", file);
 		perror("can't get stat of file");
 		return (0);
 	}
@@ -61,8 +61,7 @@ int			read_dir(char *file, void *flags)
 
 	if (!(dir = opendir(file)))
 	{
-		printf("oups, %s : ", file);
-		fflush(stdout);
+		ft_printf("oups, %s : ", file);
 		perror("erreur d'ouverture");
 		return (0);
 	}

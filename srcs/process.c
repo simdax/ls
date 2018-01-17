@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:30:43 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:48:01 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 15:53:59 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		r_dir(char **dirs, int *flags, int blk_size)
 		else
 			g_first = 1;
 		if (!flags[ALONE])
-			printf("%s:\n", *dirs);
+			ft_printf("%s:\n", *dirs);
 		else
 			flags[ALONE] = 0;
 		read_dir(*dirs, flags);
@@ -111,7 +111,7 @@ void			process(t_list *list, void *p_flags)
 		list = ft_cpyrev(list);
 	}
 	if (flags[LONG] && !flags[ALONE])
-		printf("total %d\n", infos.block_size);
+		ft_printf("total %d\n", infos.block_size);
 	fflush(stdout);
 	ft_lstiter2(list, print, &infos);
 	if (!flags[LONG])
