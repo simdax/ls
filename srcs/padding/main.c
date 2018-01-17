@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:46:57 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 12:26:31 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ unsigned	get_term_width(void)
 	endwin();
 	if (max_x == -1)
 	{
-		fprintf(stderr, "getmaxyx() failed\n");
+		ft_printf("getmaxyx() failed\n");
 		return (0);
 	}
 	return (max_x);
@@ -59,21 +59,18 @@ void		print_tab(int max, file_and_mode_t *blabla,
 	{
 		if (j < max)
 		{
-			printf("\e[%dm%-*s", get_color(blabla[j].mode), space, blabla[j].name);
-			fflush(stdout);
+			ft_printf("\e[%dm%-*s", get_color(blabla[j].mode), space, blabla[j].name);
 			j += cols;
 			++i;
 		}
 		else
 		{
-			printf("\n");
-			fflush(stdout);
+			write(1, "\n", 1);
 			j = ++k;
 		}
 	}
 	if (max)
-		printf("\n");
-	fflush(stdout);
+		write(1, "\n", 1);
 }
 
 void		p_print(int len, file_and_mode_t *array)
@@ -84,7 +81,7 @@ void		p_print(int len, file_and_mode_t *array)
 
 	max = get_max(len, array);
 	width = get_term_width();
-	print_tab(len, array, (len / (width / max)) + 1, max);
+	print_tab(len, array, max > width ? len : (len / (width / max)) + 1, max);
 }
 
 int			print_padded(t_list *list, int all_flag)

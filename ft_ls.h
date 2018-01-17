@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:40:56 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 10:11:22 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@
 # include <string.h>
 # include <grp.h>
 # include <pwd.h>
-#include <ncurses.h>
+# include <ncurses.h>
 # include "libft.h"
 # include "libft/list/includes.h"
+# include "printf.h"
 
-# define FLAGS "lrRat"
+# define FLAGS_LS "lrRat"
 # define NB_FLAGS 6
 
 typedef struct	s_node
@@ -54,11 +55,10 @@ enum			flags
 	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
 };
 
-
 typedef struct	file_and_mode_s
 {
-	char	*name;
-	int		mode;
+	char		*name;
+	int			mode;
 }				file_and_mode_t;
 
 int					famlen(file_and_mode_t *str);

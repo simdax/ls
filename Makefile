@@ -1,7 +1,7 @@
 NAME = ft_ls
 #LD = -Llibft -lft
-LD = libft/libft.a
-INC = -I libft/list -I libft -I .
+LD = libft/libft.a libft/printf/build/libftprintf.a
+INC = $(addprefix -I, . libft libft/list libft/printf libft/printf/build/includes)
 FLAGS = $(INC) $(LD)
 SRCS = main.c utils.c print.c mklist.c process.c list_utils.c padding/main.c padding/utils.c colors.c
 OBJS = $(SRCS:%.c=objs/%.o)
