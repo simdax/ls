@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:08:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:42:10 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 13:42:11 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,49 +25,46 @@ size_t				size_of_lst(t_list *lst)
 	return (i);
 }
 
-int					famlen(file_and_mode_t *str)
+int					famlen(t_node **str)
 {
 	int	i;
 
 	i = 0;
-	while ((str++)->mode)
+	while (str[i])
 		++i;
 	return (i);
 }
 
-void			free_fam(file_and_mode_t *fam)
+void			free_fam(t_node **fam)
 {	
-	file_and_mode_t	*cpy;
+	t_node	**cpy;
 
 	cpy = fam;
-	while (fam->mode)
-		free((fam++)->name);
+	while (*fam)
+		free((*fam++)->name);
 	free(cpy);
 }
 
-file_and_mode_t		*array_from_list(t_list *lst, int all_flag)
+t_node		**array_from_list(t_list *lst, int all_flag)
 {
-	file_and_mode_t	*ret;
-	char			*name;
-	int				mode;
-	int				size;
-	int				i;
+	t_node		**ret;
+	char		*name;
+	int			mode;
+	int			size;
+	int			i;
 
 	i = 0;
 	size = size_of_lst(lst);
-	ret = malloc(sizeof(*ret) * (size + 1));
+	ret = (t_node**)malloc(sizeof(*ret) * (size + 1));
 	while (lst)
 	{
-		name = ((t_node*)lst->content)->name;
-		mode = ((t_node*)lst->content)->sb.st_mode;
-		if (!all_flag ? name[0] != '.' : 1)
+		if (!all_flag ? ((t_node*)(lst->content))->name[0] != '.' : 1)
 		{
-			ret[i].name = ft_strdup(name);
-			ret[i].mode = mode;
+			ret[i] = (t_node*)lst->content;
 			++i;
 		}
 		lst = lst->next;
 	}
-	ret[i].mode = 0;
+	ret[i] = 0;
 	return (ret);
 }

@@ -6,7 +6,11 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 11:20:09 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 10:11:22 by scornaz          ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2018/01/17 16:07:45 by scornaz          ###   ########.fr       */
+=======
+/*   Updated: 2018/01/17 13:49:11 by scornaz          ###   ########.fr       */
+>>>>>>> 004b822
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +59,11 @@ enum			flags
 	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, ALONE
 };
 
-typedef struct	file_and_mode_s
-{
-	char		*name;
-	int			mode;
-}				file_and_mode_t;
-
-int					famlen(file_and_mode_t *str);
-void				free_fam(file_and_mode_t *str);
-file_and_mode_t		*array_from_list(t_list *lst, int all_flag);
+int					famlen(t_node **str);
+void				free_fam(t_node **str);
+t_node				**array_from_list(t_list *lst, int all_flag);
 char				*print_color(char *name, int mode);
-int					get_color(int mode);
+int					get_color(struct stat sb);
 size_t				size_of_lst(t_list *lst);
 int					print_padded(t_list *list, int flag);
 void				get_blkcnt(void* a, t_list *b, void *opts);

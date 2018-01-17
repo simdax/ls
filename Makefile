@@ -3,7 +3,9 @@ NAME = ft_ls
 LD = libft/libft.a libft/printf/build/libftprintf.a
 INC = $(addprefix -I, . libft libft/list libft/printf libft/printf/build/includes)
 FLAGS = $(INC) $(LD)
-SRCS = main.c utils.c print.c mklist.c process.c list_utils.c padding/main.c padding/utils.c colors.c
+MAIN = main.c utils.c mklist.c process.c list_utils.c
+PRINT = $(addprefix padding/, main.c utils.c colors.c print.c)
+SRCS = $(MAIN) $(PRINT)
 OBJS = $(SRCS:%.c=objs/%.o)
 
 vpath %.c srcs
