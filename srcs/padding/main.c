@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 15:38:34 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 17:46:57 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 13:43:31 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned	get_term_width(void)
 	return (max_x);
 }
 
-int			get_max(int argc, file_and_mode_t *argv)
+int			get_max(int argc, t_node **argv)
 {
 	int len;
 	int	max;
@@ -38,15 +38,14 @@ int			get_max(int argc, file_and_mode_t *argv)
 	i = 0;
 	while (i < argc)
 	{
-		len = ft_strlen((argv++)->name);
+		len = ft_strlen((*argv++)->name);
 		max = len > max ? len : max;
 		++i;
 	}
 	return (max + 8 - max % 8);
 }
 
-void		print_tab(int max, file_and_mode_t *blabla,
-					  int cols, int space)
+void		print_tab(int max, t_node **blabla, int cols, int space)
 {
 	int		i;
 	int		j;
@@ -59,7 +58,8 @@ void		print_tab(int max, file_and_mode_t *blabla,
 	{
 		if (j < max)
 		{
-			printf("\e[%dm%-*s", get_color(blabla[j].mode), space, blabla[j].name);
+			printf("\e[%dm%-*s", get_color(blabla[j]->sb.st_mode),
+				   space, blabla[j]->name);
 			fflush(stdout);
 			j += cols;
 			++i;
@@ -76,7 +76,7 @@ void		print_tab(int max, file_and_mode_t *blabla,
 	fflush(stdout);
 }
 
-void		p_print(int len, file_and_mode_t *array)
+void		p_print(int len, t_node **array)
 {
 	int max;
 	int width;
@@ -89,10 +89,10 @@ void		p_print(int len, file_and_mode_t *array)
 
 int			print_padded(t_list *list, int all_flag)
 {
-	file_and_mode_t	*array;
+	t_node	**array;
 	
 	array = array_from_list(list, all_flag);
 	p_print(famlen(array), array);
-	free_fam(array);
+	free(array);
 	return (0);
 }
