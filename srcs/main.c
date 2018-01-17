@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 10:40:31 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 16:36:38 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int		main(int argc, char **argv)
 	++argv;
 	take_flags(&argv, &argc, flags);
 	if (!argc)
-		read_dir(".", flags);
-	else
 	{
-		if (argc == 1)
-			flags[ALONE] = 1;
-		process(mkl_argv(argv), flags);
+		*(--argv) = ".";
+		++argc;
 	}
+	if (argc == 1)
+		flags[ALONE] = 1;
+	process(mkl_argv(argv), flags);
 	free(flags);
 	return (0);
 }
