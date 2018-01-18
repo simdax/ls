@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 11:00:52 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 13:38:14 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ static void		r_dir(char **dirs, int *flags, int blk_size)
 	while (--i >= 0)
 	{
 		++dirs;
-		if (g_first)
-			write(1, "\n", 1);
-		else
-			g_first = 1;
+		/* if (g_first) */
+		/* 	write(1, "\n", 1); */
+		/* else */
+		/* 	g_first = 1; */
 		if (!flags[ALONE])
 			ft_printf("%s:\n", *dirs);
 		else
 			flags[ALONE] = 0;
 		read_dir(*dirs, flags);
+		write(1, "\n", 1);
 	}
 	free(cpy);
 }
@@ -112,7 +113,7 @@ void			process(t_list *list, void *p_flags)
 	if (flags[LONG] && !flags[ALONE])
 		ft_printf("total %d\n", infos.block_size);
 	ft_lstiter2(list, print, &infos);
-	if (!flags[LONG] && !flags[ALONE])
+	if (!flags[LONG])
 		print_padded(list, flags);
 	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
