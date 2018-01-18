@@ -6,38 +6,53 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 13:41:31 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 13:52:54 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+static void	parse_f(char *flags, int *arg)
+{
+	char	*index;
+
+	index = 0;
+	while (*flags)
+	{
+		if ((index = ft_strchr(FLAGS_LS, *flags)))
+				arg[index - FLAGS_LS] = 1;
+		else
+		{
+			ft_printf("Flags error: usage %s\n", FLAGS_LS);
+			exit(1);
+		}
+		++flags;
+	}
+}
+
 int		take_flags(char ***p_argv, int *argc, int *arg)
 {
 	char	*flags;
-	char	*index;
 	char	**argv;
 
 	argv = *p_argv;
-	index = 0;
 	flags = argv[0];
-	if (flags && flags[0] == '-' && ft_strcmp(flags, "--"))
+	if (flags && flags[0] == '-')
 	{
-		++flags;
-		while (*flags)
+		if (ft_strcmp(flags, "--"))
 		{
-			if ((index = ft_strchr(FLAGS_LS, *flags)))
-				arg[index - FLAGS_LS] = 1;
-			else
-			{
-				ft_printf("Flags error: usage %s", FLAGS_LS);
-				exit(1);
-			}
 			++flags;
+			parse_f(flags, arg);
+			++(*p_argv);
+			--(*argc);
+			return (1);
 		}
-		++(*p_argv);
-		--(*argc);
-		return (1);
+		else
+		{
+			++(*p_argv);
+			--(*argc);
+			return (0);			
+		}
 	}
 	return (0);
 }

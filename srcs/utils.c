@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:06:45 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 16:06:45 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 13:46:49 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int			read_dir(char *file, void *flags)
 
 	if (!(dir = opendir(file)))
 	{
-		ft_printf("oups, %s : ", file);
-		perror("erreur d'ouverture");
+		ft_printf("error, %s : ", file);
+		perror("can't open file");
 		return (0);
 	}
 	else
