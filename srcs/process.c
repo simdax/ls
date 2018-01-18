@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:27:49 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 17:08:25 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ void			print(t_list *el, void *p_read)
 		return ;
 	if (infos->flags[LONG])
 		print_stat(sb, name, fullname, infos);
+	else if (infos->flags[ONE])
+		ft_printf("\e[%dm%-s\e[37m\n",
+				  infos->flags[COLOR] ? get_color(sb) : 37,
+				  name);
 }
 
 static void		init_infos(t_infos *infos, t_list *list, int *flags)
@@ -111,7 +115,7 @@ void			process(t_list *list, void *p_flags)
 	if (flags[LONG] && !flags[ALONE])
 		ft_printf("total %d\n", infos.block_size);
 	ft_lstiter2(list, print, &infos);
-	if (!flags[LONG])
+	if (!flags[LONG] && !flags[ONE])
 		print_padded(list, flags);
 	r_dir(infos.dirs, flags);
 	ft_lstdel(&list, clean);

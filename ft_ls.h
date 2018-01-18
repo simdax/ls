@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:09:01 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:25:50 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 17:05:54 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 # include "libft/list/includes.h"
 # include "printf.h"
 
-# define FLAGS_LS "lrRatG"
-# define NB_FLAGS 8
+# define FLAGS_LS "lrRatG1"
+# define NB_FLAGS 9
 
 enum			e_flags
 {
-	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, COLOR, ALONE, ALL_INVISIBLE
+	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, COLOR, ONE, ALONE, ALL_INVISIBLE
 };
 
 typedef struct	s_node

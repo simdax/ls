@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:08:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 16:58:53 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 17:04:37 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			free_fam(t_node **fam)
 t_node			**array_from_list(t_list *lst, int all_flag)
 {
 	t_node		**ret;
-	char		*name;
+	t_node		*node;
 	int			mode;
 	int			size;
 	int			i;
@@ -58,9 +58,12 @@ t_node			**array_from_list(t_list *lst, int all_flag)
 	ret = (t_node**)malloc(sizeof(*ret) * (size + 1));
 	while (lst)
 	{
-		if (!all_flag ? ((t_node*)(lst->content))->name[0] != '.' : 1)
+		node = lst->content;
+		if ((ft_strcmp(node->name, node->fullname) &&
+			 !is_dir(node->sb.st_mode)) ||
+			(all_flag && node->name[0] == '.'))
 		{
-			ret[i] = (t_node*)lst->content;
+			ret[i] = node;
 			++i;
 		}
 		lst = lst->next;
