@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:25:19 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 14:51:17 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,37 @@ static int		all_invisible(char **argv)
 	return (ret != 0);
 }
 
+static char		**solve_link(int len, char **argv)
+{
+	struct stat	sb;
+	char		**ret;
+	char		*smlink;
+	int			i;
+
+	i = 0;
+	ret = (char**)malloc(sizeof(char*) * (len + 1));
+	while (*argv)
+	{
+		if (return_stat(*argv, &sb))
+		{
+			if (S_ISLNK(sb.st_mode))
+			{
+				ret[i] = malloc(1000);
+				readlink(*argv, ret[i], 1000);
+			}
+		}
+		ret[i] = ft_strdup(*argv);
+		++argv;
+		++i;
+	}
+	ret[i] = 0;
+	return (ret);
+}
+
 int				main(int argc, char **argv)
 {
 	int		*flags;
+	char	**new_args;
 	t_list	*list;
 
 	--argc;
@@ -90,7 +118,9 @@ int				main(int argc, char **argv)
 		flags[ALL_INVISIBLE] = 1;
 	if (argc == 1 || flags[LONG])
 		flags[ALONE] = 1;
-	process(mkl_argv(argv), flags);
+	new_args = solve_link(argc, argv);
+	process(mkl_argv(new_args), flags);
 	free(flags);
+	ft_free_strsplit(new_args);
 	return (0);
 }
