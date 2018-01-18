@@ -14,7 +14,7 @@ all: $(OBJS)
 	@make -C libft
 	gcc -g3 -lm -lncurses $(LD) $^ -o $(NAME)
 
-objs/%.o:%.c
+objs/%.o:%.c ft_ls.h
 	gcc -g3 $(INC) -c $< -o $@
 
 clean:

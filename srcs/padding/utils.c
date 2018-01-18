@@ -6,13 +6,13 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 14:08:55 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 13:42:11 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/17 16:58:53 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-size_t				size_of_lst(t_list *lst)
+size_t			size_of_lst(t_list *lst)
 {
 	size_t	i;
 
@@ -25,7 +25,7 @@ size_t				size_of_lst(t_list *lst)
 	return (i);
 }
 
-int					famlen(t_node **str)
+int				famlen(t_node **str)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ int					famlen(t_node **str)
 }
 
 void			free_fam(t_node **fam)
-{	
+{
 	t_node	**cpy;
 
 	cpy = fam;
@@ -45,7 +45,7 @@ void			free_fam(t_node **fam)
 	free(cpy);
 }
 
-t_node		**array_from_list(t_list *lst, int all_flag)
+t_node			**array_from_list(t_list *lst, int all_flag)
 {
 	t_node		**ret;
 	char		*name;
