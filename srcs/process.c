@@ -6,15 +6,13 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 13:38:14 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 14:01:50 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	g_first = 0;
-
-static void		r_dir(char **dirs, int *flags, int blk_size)
+static void		r_dir(char **dirs, int *flags)
 {
 	int		i;
 	char	**cpy;
@@ -29,16 +27,14 @@ static void		r_dir(char **dirs, int *flags, int blk_size)
 	while (--i >= 0)
 	{
 		++dirs;
-		/* if (g_first) */
-		/* 	write(1, "\n", 1); */
-		/* else */
-		/* 	g_first = 1; */
 		if (!flags[ALONE])
+		{
+			write(1, "\n", 1);
 			ft_printf("%s:\n", *dirs);
+		}
 		else
 			flags[ALONE] = 0;
 		read_dir(*dirs, flags);
-		write(1, "\n", 1);
 	}
 	free(cpy);
 }
@@ -115,6 +111,6 @@ void			process(t_list *list, void *p_flags)
 	ft_lstiter2(list, print, &infos);
 	if (!flags[LONG])
 		print_padded(list, flags);
-	r_dir(infos.dirs, flags, infos.block_size);
+	r_dir(infos.dirs, flags);
 	ft_lstdel(&list, clean);
 }

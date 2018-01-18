@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/15 16:29:18 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 13:45:50 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 13:59:47 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		get_color(struct stat sb)
 	if (S_ISDIR(mode))
 		return (CYAN);
 	else if (S_ISLNK(mode))
-		return (CYAN);
+		return (YELLOW);
 	else if (exec)
 		return (RED);
 	else if (S_ISREG(mode))
