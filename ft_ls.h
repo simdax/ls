@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:09:01 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 11:08:52 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 14:25:50 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@
 # include "printf.h"
 
 # define FLAGS_LS "lrRatG"
-# define NB_FLAGS 7
+# define NB_FLAGS 8
+
+enum			e_flags
+{
+	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, COLOR, ALONE, ALL_INVISIBLE
+};
 
 typedef struct	s_node
 {
@@ -56,11 +61,6 @@ typedef struct	s_padding_args
 	int cols;
 	int space;
 }				t_padding_args;
-
-enum			e_flags
-{
-	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, COLOR, ALONE
-};
 
 int					famlen(t_node **str);
 void				free_fam(t_node **str);

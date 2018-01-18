@@ -6,13 +6,13 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:11:46 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 14:25:19 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	parse_f(char *flags, int *arg)
+static void		parse_f(char *flags, int *arg)
 {
 	char	*index;
 
@@ -30,7 +30,7 @@ static void	parse_f(char *flags, int *arg)
 	}
 }
 
-int		take_flags(char ***p_argv, int *argc, int *arg)
+int				take_flags(char ***p_argv, int *argc, int *arg)
 {
 	char	*flags;
 	char	**argv;
@@ -57,7 +57,20 @@ int		take_flags(char ***p_argv, int *argc, int *arg)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+static int		all_invisible(char **argv)
+{
+	int	ret;
+
+	ret = 0;
+	while (*argv)
+	{
+		ret += ft_strcmp(".", *argv) + ft_strcmp("..", *argv);
+		++argv;
+	}
+	return (ret != 0);
+}
+
+int				main(int argc, char **argv)
 {
 	int		*flags;
 	t_list	*list;
@@ -73,6 +86,8 @@ int		main(int argc, char **argv)
 		*(--argv) = ".";
 		++argc;
 	}
+	if (all_invisible(argv))
+		flags[ALL_INVISIBLE] = 1;
 	if (argc == 1 || flags[LONG])
 		flags[ALONE] = 1;
 	process(mkl_argv(argv), flags);

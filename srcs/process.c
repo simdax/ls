@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:01:50 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 14:27:49 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static void		r_dir(char **dirs, int *flags)
 		++dirs;
 		if (!flags[ALONE])
 		{
-			write(1, "\n", 1);
+			if (!flags[ALL_INVISIBLE])
+				write(1, "\n", 1);
 			ft_printf("%s:\n", *dirs);
+			flags[ALL_INVISIBLE] = 0;
 		}
 		else
 			flags[ALONE] = 0;
