@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:09:01 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 09:44:52 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 11:08:52 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ typedef struct	s_infos
 	int			*flags;
 }			t_infos;
 
+typedef struct	s_padding_args
+{
+	int max;
+	int cols;
+	int space;
+}				t_padding_args;
+
 enum			e_flags
 {
 	LONG, REVERSE, RECURSIVE, ALL, TIME_SORT, COLOR, ALONE
@@ -61,7 +68,7 @@ t_node				**array_from_list(t_list *lst, int all_flag);
 char				*print_color(char *name, int mode);
 int					get_color(struct stat sb);
 size_t				size_of_lst(t_list *lst);
-int					print_padded(t_list *list, int flag);
+int					print_padded(t_list *list, int *flags);
 void				get_blkcnt(void* a, t_list *b, void *opts);
 int					sort_f(t_list *el1, t_list *el2);
 int					sort_t(t_list *el1, t_list *el2);

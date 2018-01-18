@@ -6,13 +6,13 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:06:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 16:59:27 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 11:08:26 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-unsigned	get_term_width(void)
+static unsigned	get_term_width(void)
 {
 	int max_x;
 	int max_y;
@@ -28,7 +28,7 @@ unsigned	get_term_width(void)
 	return (max_x);
 }
 
-int			get_max(int argc, t_node **argv)
+static int		get_max(int argc, t_node **argv)
 {
 	int len;
 	int	max;
@@ -45,7 +45,7 @@ int			get_max(int argc, t_node **argv)
 	return (max + 8 - max % 8);
 }
 
-void		print_tab(int max, t_node **blabla, int cols, int space)
+static void		print_tab(t_padding_args args, t_node **blabla, int *flags)
 {
 	int		i;
 	int		j;
@@ -54,13 +54,14 @@ void		print_tab(int max, t_node **blabla, int cols, int space)
 	i = 0;
 	j = 0;
 	k = 0;
-	while (i < max)
+	while (i < args.max)
 	{
-		if (j < max)
+		if (j < args.max)
 		{
-			ft_printf("\e[%dm%-*s\e[37m", get_color(blabla[j]->sb),
-					space, blabla[j]->name);
-			j += cols;
+			ft_printf("\e[%dm%-*s\e[37m",
+					flags[COLOR] ? get_color(blabla[j]->sb) : 37,
+					args.space, blabla[j]->name);
+			j += args.cols;
 			++i;
 		}
 		else
@@ -69,27 +70,31 @@ void		print_tab(int max, t_node **blabla, int cols, int space)
 			j = ++k;
 		}
 	}
-	if (max)
+	if (args.max)
 		write(1, "\n", 1);
 }
 
-void		p_print(int len, t_node **array)
+static void		p_print(int len, t_node **array, int *flags)
 {
+	t_padding_args	args;
 	int max;
 	int width;
 	int cols;
 
 	max = get_max(len, array);
 	width = get_term_width();
-	print_tab(len, array, max > width ? len : (len / (width / max)) + 1, max);
+	args.max = len;
+	args.cols = max > width ? len : (len / (width / max)) + 1;
+	args.space = max;
+	print_tab(args, array, flags);
 }
 
-int			print_padded(t_list *list, int all_flag)
+int				print_padded(t_list *list, int *flags)
 {
 	t_node	**array;
 
-	array = array_from_list(list, all_flag);
-	p_print(famlen(array), array);
+	array = array_from_list(list, flags[ALL]);
+	p_print(famlen(array), array, flags);
 	free(array);
 	return (0);
 }

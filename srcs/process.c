@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/17 16:27:46 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 11:00:52 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void			process(t_list *list, void *p_flags)
 		ft_printf("total %d\n", infos.block_size);
 	ft_lstiter2(list, print, &infos);
 	if (!flags[LONG] && !flags[ALONE])
-		print_padded(list, flags[ALL]);
+		print_padded(list, flags);
 	r_dir(infos.dirs, flags, infos.block_size);
 	ft_lstdel(&list, clean);
 }
