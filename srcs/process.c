@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:07:00 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 17:08:25 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/18 17:58:04 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ static void		r_dir(char **dirs, int *flags)
 		++dirs;
 		if (!flags[ALONE])
 		{
-			if (!flags[ALL_INVISIBLE])
-				write(1, "\n", 1);
+			write(1, "\n", 1);
 			ft_printf("%s:\n", *dirs);
-			flags[ALL_INVISIBLE] = 0;
 		}
 		else
 			flags[ALONE] = 0;
@@ -78,8 +76,8 @@ void			print(t_list *el, void *p_read)
 		print_stat(sb, name, fullname, infos);
 	else if (infos->flags[ONE])
 		ft_printf("\e[%dm%-s\e[37m\n",
-				  infos->flags[COLOR] ? get_color(sb) : 37,
-				  name);
+				infos->flags[COLOR] ? get_color(sb) : 37,
+				name);
 }
 
 static void		init_infos(t_infos *infos, t_list *list, int *flags)

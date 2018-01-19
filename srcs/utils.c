@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:06:45 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 13:46:49 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/19 15:05:04 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int			return_stat(char *file, struct stat *sb)
 {
 	if (lstat(file, sb) != 0)
 	{
-		ft_printf("error %s  : ", file);
-		perror("can't get stat of file");
+		write(2, "ls: ", 4);
+		perror(file);
 		return (0);
 	}
 	return (1);
@@ -57,12 +57,11 @@ int			is_dir(long st_mode)
 int			read_dir(char *file, void *flags)
 {
 	DIR			*dir;
-	t_list		*list;
 
 	if (!(dir = opendir(file)))
 	{
-		ft_printf("error, %s : ", file);
-		perror("can't open file");
+		write(2, "ls: ", 4);
+		perror(file);
 		return (0);
 	}
 	else

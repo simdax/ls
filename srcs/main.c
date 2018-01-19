@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/02 09:52:51 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 14:51:17 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/19 15:03:41 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		parse_f(char *flags, int *arg)
 	while (*flags)
 	{
 		if ((index = ft_strchr(FLAGS_LS, *flags)))
-				arg[index - FLAGS_LS] = 1;
+			arg[index - FLAGS_LS] = 1;
 		else
 		{
 			ft_printf("Flags error: usage %s\n", FLAGS_LS);
@@ -51,7 +51,7 @@ int				take_flags(char ***p_argv, int *argc, int *arg)
 		{
 			++(*p_argv);
 			--(*argc);
-			return (0);			
+			return (0);
 		}
 	}
 	return (0);
@@ -74,7 +74,6 @@ static char		**solve_link(int len, char **argv)
 {
 	struct stat	sb;
 	char		**ret;
-	char		*smlink;
 	int			i;
 
 	i = 0;
@@ -88,10 +87,11 @@ static char		**solve_link(int len, char **argv)
 				ret[i] = malloc(1000);
 				readlink(*argv, ret[i], 1000);
 			}
+			else
+				ret[i] = ft_strdup(*argv);
+			++i;
 		}
-		ret[i] = ft_strdup(*argv);
 		++argv;
-		++i;
 	}
 	ret[i] = 0;
 	return (ret);
@@ -101,7 +101,6 @@ int				main(int argc, char **argv)
 {
 	int		*flags;
 	char	**new_args;
-	t_list	*list;
 
 	--argc;
 	flags = (int*)malloc(sizeof(int) * NB_FLAGS);

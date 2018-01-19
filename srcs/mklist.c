@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 15:26:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/15 16:28:42 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/19 15:06:43 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_list		*mkl_argv(char **argv)
 {
 	t_node	node;
 	t_list	*list;
-	t_list	*tmp;
 
 	list = 0;
 	while (*argv)
@@ -61,6 +60,7 @@ void		clean(void *el, size_t len)
 {
 	t_node *e;
 
+	(void)len;
 	e = el;
 	free(e->name);
 	e->name = NULL;

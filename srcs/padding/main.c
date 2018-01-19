@@ -6,7 +6,7 @@
 /*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:06:29 by scornaz           #+#    #+#             */
-/*   Updated: 2018/01/18 17:08:41 by scornaz          ###   ########.fr       */
+/*   Updated: 2018/01/19 15:06:59 by scornaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static void		print_tab(t_padding_args args, t_node **blabla, int *flags)
 	{
 		if (j < args.max)
 		{
-			ft_printf("\e[%dm%-*s\e[37m",
+			ft_printf("\e[%dm%-*s%s\e[37m",
 					flags[COLOR] ? get_color(blabla[j]->sb) : 37,
-					args.space, blabla[j]->name);
+					args.space, blabla[j]->name, flags[COLOR] ? "\e[37m" : "");
 			j += args.cols;
 			++i;
 		}
@@ -77,9 +77,8 @@ static void		print_tab(t_padding_args args, t_node **blabla, int *flags)
 static void		p_print(int len, t_node **array, int *flags)
 {
 	t_padding_args	args;
-	int max;
-	int width;
-	int cols;
+	int				max;
+	int				width;
 
 	max = get_max(len, array);
 	width = get_term_width();
